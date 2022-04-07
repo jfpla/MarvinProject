@@ -33,7 +33,22 @@ Jo
 - Recomanacions en funció del temps disponible, mood, gènere.
 - Arxivar contingut
 - Afegir noves fitxes de contingut mitjançant enllaços
+- Local storage amb objectes ben estructurats. [Notes Storage](#remote-storage)
 
 ## TODO (long term)
 
+### Sync
+
+Usar Firebase per mantenir les dades sincronitzades entre dispositius. [Notes Storage](#remote-storage)
+
+### Social
+
 El component social: Integració amb altres serveis com goodreads, themoviedb, simkl.com o youtube
+
+## Notes
+
+### Remote Storage
+
+Planteja el projecte tirant de local storage i posa com a ampliació / línia futura la integració amb Firebase pel tema de sincronitzar entre dispositius. Si et dona temps a fer la part de Firebase, ole. Si no, igualment tens una webapp funcionant bé.
+
+A banda, si el tema local storage el fas amb objectes ben estructurats, després tens una part del camí recorregut per Firebase. I a banda, afegir Firebase no treu que t'interessi igualment tenir local storage, perquè així l'aplicació pugui sempre funcionar en local encara que no tingui connexió a Internet i fer després les sincronitzacions quan en torni a tenir.
