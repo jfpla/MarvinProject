@@ -1,5 +1,9 @@
 # Diari sobre el procés de planificació i desenvolupament
 
+
+## (2022-04-23) UX: Notes sobre disseny
+- Recerca sobre com escollir colors 
+
 ## (2022-04-22) API research i UX
 
 - S'opta per començar el projecte atacant un sol endpoint de l'API de TMDB.
