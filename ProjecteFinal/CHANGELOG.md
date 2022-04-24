@@ -1,5 +1,7 @@
 # Diari sobre el procés de planificació i desenvolupament
 
+## (2022-04-24) UX inspiration
+- S'han remenat al voltant d'uns 15 dissenys a figma i dribble
 
 ## (2022-04-23) UX: Notes sobre disseny
 - Recerca sobre com escollir colors 
