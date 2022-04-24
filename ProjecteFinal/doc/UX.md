@@ -36,9 +36,9 @@ disponibles i accedir a informació extra sobre el mateix.
 
 ## Disseny
 
-### Colors
+### Color Tips
 
-TIPS from https://www.youtube.com/watch?v=C1rQQ_YpgcI
+from https://www.youtube.com/watch?v=C1rQQ_YpgcI
 
 #### Color Harmonies
 
@@ -77,3 +77,13 @@ It's hard. You want harmonious colors, room to breath and plenty of contrast.
 
 Be consistent in the way you use your colors to avoid confusing the viewer.
 
+#### Colors I like
+
+##### Material 3
+https://m3.material.io/styles/color/the-color-system/key-colors-tones
+###### Roles
+![Material 3 Roles light](images/material3-roles-light.png)
+![Material 3 Roles dark](images/material3-roles-dark.png)
+###### Tokens
+![Material 3 Tokens light](images/material3-tokens-light.png)
+![Material 3 Tokens dark](images/material3-tokens-dark.png)
