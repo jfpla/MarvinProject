@@ -1,5 +1,9 @@
 # Diari sobre el procés de planificació i desenvolupament
 
+## (2022-04-25) UX design
+- Es comença a dissenyar la pàgina principal emfatitzant la caixa de cerca 
+omnibox amb [Figma](https://www.figma.com/file/u55CZr72i0HtHgYXoYcBPf/FOMO).  
+
 ## (2022-04-24) UX inspiration
 - S'han remenat al voltant d'uns 15 dissenys a figma i dribble
 

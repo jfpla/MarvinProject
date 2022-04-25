@@ -36,6 +36,12 @@ disponibles i accedir a informació extra sobre el mateix.
 
 ## Disseny
 
+### Details:  
+- [UX HOME](UX-HOME.md)
+- [UX OMNIBOX](UX-OMNIBOX.md)
+
+
+
 ### Color Tips
 
 from https://www.youtube.com/watch?v=C1rQQ_YpgcI
