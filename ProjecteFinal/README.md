@@ -33,7 +33,7 @@ N'he anotat algunes però sense mirar res a fons.
 D'entrada ens limitarem a usar l'api de themoviedb.  
 Suporta CORS.  
 
-**Més informació a [./doc/ExternalAPI.md](doc/ExternalAPI.md)**
+Més informació a [./doc/ExternalAPI.md](doc/ExternalAPI.md)
 
 ## Quin serà el seu usuari habitual?
 
