@@ -37,10 +37,16 @@ Suporta CORS.
 
 ## Quin serà el seu usuari habitual?
 
-Jo
+Un diagrama de Venn mostrant la intersecció entre geeks, content junkies i
+keyboard workflow lovers.  
 
 ## Quines característiques i funcionalitats tindrà?
 
+### Disseny
+- [UX (doc/UX.md)](doc/UX.md)
+- [Architecture (doc/ARCH.md)](doc/ARCH.md)
+
+### Resum
 - Cercador tipus omnibox que permeti agregar el contingut a la llista d'una
   forma ràpida. Ha de ser pràctic, treure el mòbil/desktop i notar amb una o
   dues interaccions.
@@ -50,8 +56,6 @@ Jo
 - Arxivar contingut
 - Afegir noves fitxes de contingut mitjançant enllaços
 - Local storage amb objectes ben estructurats. [Notes Storage](#remote-storage)
-
-**Més informació a [./doc/UX.md](doc/UX.md)**
 
 ### TODO (long term)
 
