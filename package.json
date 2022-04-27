@@ -1,0 +1,26 @@
+{
+  "name": "marvinproject",
+  "version": "1.0.0",
+  "description": "## De què anirà la vostra app",
+  "main": "app/main.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jfpla/MarvinProject.git"
+  },
+  "keywords": [],
+  "author": "Jordi Francesc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jfpla/MarvinProject/issues"
+  },
+  "homepage": "https://github.com/jfpla/MarvinProject#readme",
+  "devDependencies": {
+    "prettier": "^2.6.2"
+  }
+}
