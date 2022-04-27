@@ -1,5 +1,11 @@
 # Diari sobre el procés de planificació i desenvolupament
 
+
+## (2022-04-26) Learning how to start a vanilla JS project
+
+## (2022-04-25) UX design
+- Es descriu el funcionament de `Home` i `Omnibox` 
+
 ## (2022-04-25) UX design
 - Es comença a dissenyar la pàgina principal emfatitzant la caixa de cerca 
 omnibox amb [Figma](https://www.figma.com/file/u55CZr72i0HtHgYXoYcBPf/FOMO).  
