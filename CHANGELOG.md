@@ -1,6 +1,12 @@
 # Diari sobre el procés de planificació i desenvolupament
 
 
+## (2022-04-27) Planning development and deploy
+- Planificant quina estructura tindrà l'arbre de directoris
+- Quin serà l'`entrypoint` del projecte per desenvolupar en local
+- Com es resoldrà el problema dels URL paths d'un `SPA` en local
+- I com `debugar`
+
 ## (2022-04-26) Learning how to start a vanilla JS project
 
 ## (2022-04-25) UX design
