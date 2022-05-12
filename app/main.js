@@ -1,3 +1,3 @@
-import { LoadMainView } from "./views/main/MainView.js";
+import MainView from "./views/main/MainView.js";
 
-await LoadMainView();
+await MainView();

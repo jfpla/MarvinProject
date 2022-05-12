@@ -29,4 +29,4 @@ const LoadMainView = async () => {
   await loadCSS("./MainPage.css", import.meta.url);
 };
 
-export { LoadMainView };
+export default LoadMainView;
