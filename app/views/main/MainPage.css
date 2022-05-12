@@ -1,0 +1,15 @@
+.main__header {
+  background-color: aliceblue;
+  display: flex;
+}
+
+.omnibox {
+  border: black 1px solid;
+  border-radius: 0.5em;
+  background-color: blue;
+}
+
+.avatar {
+  background-color: red;
+  border-radius: 1em;
+}
