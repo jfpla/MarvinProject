@@ -1,0 +1,12 @@
+.omnibox input {
+  height: 100%;
+  width: 99%;
+}
+
+.omnibox p {
+  background-color: yellow;
+}
+
+.omnibox span {
+  background-color: blueviolet;
+}
