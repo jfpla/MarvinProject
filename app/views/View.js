@@ -19,8 +19,9 @@ const loadHTML = async (
   const template = document.createElement("template");
   template.innerHTML = await response.text();
   const mainContainer = template.content.querySelector(templateSelector);
-
-  document.querySelector(parentSelector).append(...mainContainer.childNodes); // appendChild(mainContainer);
+  const parentNode = document.querySelector(parentSelector);
+  parentNode.append(...mainContainer.childNodes); // appendChild(mainContainer);
+  return parentNode;
 };
 
 const loadCSS = async (cssRelativeUrl, baseUrl) => {
