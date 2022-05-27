@@ -1,5 +1,11 @@
 # Diari sobre el procés de planificació i desenvolupament
 
+## (2022-05-27) Es comença a programar el funcionament de l'Omnibox
+- OmniboxController utilitza el mecanisme de throttling per minimitzar les
+crides a l'API externa i obtenir resultats a mesura que l'usuari va escrivint.
+- Es crea l'esquelet del Navigator a partir d'un enum que defineix les seves
+seccions.
+
 ## (2022-05-18) Es fixa l'arquitectura a MVC + Serveis
 - Les vistes van a buscar el seu html i css i el carreguen al dom.
 - Els controladors van a buscar les vistes i, si cal, manipulen la vista.
