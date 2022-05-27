@@ -1,6 +1,12 @@
-.omnibox input {
+.omnibox form {
+  display: flex;
   height: 100%;
   width: 99%;
+}
+
+.omnibox form input {
+  /*height: 100%; !* no sembla necessari *!*/
+  width: 100%;
 }
 
 .omnibox p {
