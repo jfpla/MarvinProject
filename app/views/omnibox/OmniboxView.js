@@ -5,7 +5,7 @@ const LoadOmniboxView = async () => {
   await loadHTML(
     "./Omnibox.html",
     baseUrl,
-    "#omnibox__container",
+    "#omnibox__template",
     ".main__header .omnibox"
   );
   await loadCSS("./Omnibox.css", baseUrl);

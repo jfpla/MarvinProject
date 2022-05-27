@@ -5,7 +5,7 @@ const LoadAvatarView = async () => {
   const avatarNode = await loadHTML(
     "./Avatar.html",
     baseUrl,
-    "#avatar__container",
+    "#avatar__template",
     ".main__header .avatar"
   );
   await loadCSS("./Avatar.css", baseUrl);

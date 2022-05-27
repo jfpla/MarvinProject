@@ -5,6 +5,7 @@
 - Els controladors van a buscar les vistes i, si cal, manipulen la vista.
 - La capa de models encara està per dissenyar.
 - Els serveis són els encarregats d'atacar les API externes i storage.
+- S'utilitzen DTO's per definir la forma de les dades que retornen les API.
 
 ## (2022-05-12) Es juga amb l'estructura del projecte
 
