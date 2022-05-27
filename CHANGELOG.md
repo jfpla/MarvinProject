@@ -1,5 +1,12 @@
 # Diari sobre el procés de planificació i desenvolupament
 
+## (2022-05-18) Es fixa l'arquitectura a MVC + Serveis
+- Les vistes van a buscar el seu html i css i el carreguen al dom.
+- Els controladors van a buscar les vistes i, si cal, manipulen la vista.
+- La capa de models encara està per dissenyar.
+- Els serveis són els encarregats d'atacar les API externes i storage.
+
+## (2022-05-12) Es juga amb l'estructura del projecte
 
 ## (2022-04-27) Planning development and deploy
 - Planificant quina estructura tindrà l'arbre de directoris
