@@ -17,6 +17,8 @@ img {
 }
 
 .omnibox {
+  display: flex;
+  align-items: center;
   border: black 1px solid;
   border-radius: 0.5em;
   background-color: blue;
