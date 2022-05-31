@@ -1,29 +1,16 @@
-// const show = {
-//   backdrop_path: "/5xeC9mN6Aq2PmbbglqxiJxSPgvl.jpg",
-//   genre_ids: [27, 35, 53],
-//   id: 5072,
-//   media_type: "movie",
-//   original_language: "en",
-//   overview: "",
-//   popularity: 13.552,
-//   poster_path: "/yg1XRTyH5knwh3Tnij2sUV0ZZ5w.jpg",
-//   vote_average: 6.3,
-//   vote_count: 431,
-// };
-
 /**
  * Show Pseudo Type
  * @typedef   {Object}    ShowType
- * @property  {string}    backdrop_path
- * @property  {number[]}  genre_ids
- * @property  {number}    id
- * @property  {string}    media_type
- * @property  {string}    original_language
- * @property  {string}    overview
- * @property  {number}    popularity
- * @property  {string}    poster_path
- * @property  {number}    vote_average
- * @property  {number}    vote_count
+ * @property  {string}    backdrop_path     "/5xeC9mN6Aq2PmbbglqxiJxSPgvl.jpg"
+ * @property  {number[]}  genre_ids         [27, 35, 53]
+ * @property  {number}    id                5072
+ * @property  {string}    media_type        "movie"
+ * @property  {string}    original_language "en"
+ * @property  {string}    overview          "The show description..."
+ * @property  {number}    popularity        13.552
+ * @property  {string}    poster_path       "/yg1XRTyH5knwh3Tnij2sUV0ZZ5w.jpg"
+ * @property  {number}    vote_average      6.3
+ * @property  {number}    vote_count        431
  */
 
 /**
