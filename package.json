@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "## De què anirà la vostra app",
   "main": "app/main.js",
+  "type": "module",
   "directories": {
     "doc": "doc"
   },
