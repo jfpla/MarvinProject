@@ -12,21 +12,24 @@
 // };
 
 /**
+ * Show Pseudo Type
+ * @typedef   {Object}    ShowType
+ * @property  {string}    backdrop_path
+ * @property  {number[]}  genre_ids
+ * @property  {number}    id
+ * @property  {string}    media_type
+ * @property  {string}    original_language
+ * @property  {string}    overview
+ * @property  {number}    popularity
+ * @property  {string}    poster_path
+ * @property  {number}    vote_average
+ * @property  {number}    vote_count
+ */
+
+/**
  *
- * @param obj
- * @returns {{
- *    backdrop_path: string,
- *    genre_ids: number[],
- *    id: number,
- *    media_type: string,
- *    original_language: string,
- *    overview: string,
- *    popularity: number,
- *    poster_path: string,
- *    vote_average: number,
- *    vote_count: number
- * }} Show
- * @constructor
+ * @param {Object} obj
+ * @returns {ShowType}
  */
 export default function (obj) {
   return {

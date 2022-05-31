@@ -19,26 +19,30 @@ import Show from "./Show.js";
 // };
 
 /**
+ * Movie Show Type
+ * @typedef   {Object}    MovieShowType
+ * @property  {boolean}   adult
+ * @property  {string}    backdrop_path
+ * @property  {number[]}  genre_ids
+ * @property  {number}    id
+ * @property  {string}    media_type
+ * @property  {string}    original_language
+ * @property  {string}    original_title
+ * @property  {string}    overview
+ * @property  {number}    popularity
+ * @property  {string}    poster_path
+ * @property  {string}    release_date
+ * @property  {string}    title
+ * @property  {boolean}   video
+ * @property  {number}    vote_average
+ * @property  {number}    vote_count
+ *
+ */
+
+/**
  *
  * @param obj
- * @returns {{
- *    adult: boolean,
- *    backdrop_path: string,
- *    genre_ids: number[],
- *    id: number,
- *    media_type: string,
- *    original_language: string,
- *    original_title: string,
- *    overview: string,
- *    popularity: number,
- *    poster_path: string,
- *    release_date: string,
- *    title: string,
- *    video: boolean,
- *    vote_average: number,
- *    vote_count: number
- * }} MovieDTO
- * @constructor
+ * @returns {MovieShowType}
  */
 export default function (obj) {
   const show = Show(obj);

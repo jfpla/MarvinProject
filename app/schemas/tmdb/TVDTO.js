@@ -18,25 +18,30 @@ import Show from "./Show.js";
 // };
 
 /**
+ * TV Show Type
+ * @typedef  {Object}   TVShowType
+ * @property {string}   backdrop_path
+ * @property {string}   first_air_date
+ * @property {number[]} genre_ids
+ * @property {number}   id
+ * @property {string}   media_type
+ * @property {string}   name
+ * @property {string[]} origin_country
+ * @property {string}   original_language
+ * @property {string}   original_name
+ * @property {string}   overview
+ * @property {number}   popularity
+ * @property {string}   poster_path
+ * @property {number}   vote_average
+ * @property {number}   vote_count
+ *
+ */
+
+/**
  *
  * @param obj
- * @returns {{
- *    backdrop_path: string,
- *    first_air_date: string,
- *    genre_ids: number[],
- *    id: number,
- *    media_type: string,
- *    name: string,
- *    origin_country: string[],
- *    original_language: string,
- *    original_name: string,
- *    overview: string,
- *    popularity: number,
- *    poster_path: string,
- *    vote_average: number,
- *    vote_count: number
- * }} TVDTO
- * @constructor
+ * @returns {TVShowType}
+ * @type {(obj: Object) => TVShowType}
  */
 export default function TVDTO(obj) {
   const show = Show(obj);
