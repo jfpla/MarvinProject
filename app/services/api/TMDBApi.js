@@ -6,6 +6,6 @@ export const multiSearch = async (words) => {
   const response = await fetch(url + words);
   const data = await response.json();
   const result = MultiSearchDTO(data);
-  console.log(result);
+  //console.log(result);
   return result;
 };

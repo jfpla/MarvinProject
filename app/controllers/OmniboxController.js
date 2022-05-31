@@ -4,10 +4,9 @@ import { throttle } from "../services/RateLimiterService.js";
 
 
 function view(callback) {
-  return function (...args) {
-    const result = callback.apply(this, args);
-    result.then(data => console.log("view", data));
-    // console.log("view", result);
+  return async function (...args) {
+    const result = await callback.apply(this, args);
+    console.log("viewCallback", callback, result);
   }
 }
 
