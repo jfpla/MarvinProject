@@ -22,7 +22,7 @@ import Show from "./Show.js";
  */
 
 /**
- *
+ * Movie Show DTO Factory
  * @param   {Object} obj
  * @returns {MovieShowType}
  * @type    {(obj: Object) => MovieShowType}

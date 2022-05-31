@@ -9,7 +9,7 @@ async function querySearch(e) {
 
   console.log(query);
   e.preventDefault();
-  console.log(await multiSearch(query));
+  await multiSearch(query);
 }
 
 const LoadOmniboxController = async () => {

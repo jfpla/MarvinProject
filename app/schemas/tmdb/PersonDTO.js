@@ -69,6 +69,9 @@
 // Does Not Allow new Object();
 // *    known_for: (TVDTO|MovieDTO)[],
 
+import TVDTO from "./TVDTO.js";
+import MovieDTO from "./MovieDTO.js";
+
 /**
  * Person DTO Factory
  * @param   {Object} obj
@@ -80,7 +83,9 @@ export default function (obj) {
     adult: obj.adult,
     gender: obj.gender,
     id: obj.id,
-    known_for: obj.known_for,
+    known_for: obj.known_for.map((show) =>
+      show.media_type === "tv" ? TVDTO(show) : MovieDTO(show)
+    ),
     known_for_department: obj.known_for_department,
     media_type: obj.media_type,
     name: obj.name,

@@ -31,7 +31,7 @@ export default function TVDTO(obj) {
   return Object.assign(show, {
     first_air_date: obj.first_air_date,
     name: obj.name,
-    origin_country: obj.origin_country,
+    origin_country: [...obj.origin_country],
     original_name: obj.original_name,
   });
 }

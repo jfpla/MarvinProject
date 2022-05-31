@@ -14,14 +14,14 @@
  */
 
 /**
- *
+ * Show Factory
  * @param {Object} obj
  * @returns {ShowType}
  */
 export default function (obj) {
   return {
     backdrop_path: obj.backdrop_path,
-    genre_ids: obj.genre_ids,
+    genre_ids: [...obj.genre_ids],
     id: obj.id,
     media_type: obj.media_type,
     original_language: obj.original_language,

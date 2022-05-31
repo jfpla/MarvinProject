@@ -1,10 +1,23 @@
+/**
+ * Hashify Type
+ * @typedef   {Object}  HashifyType
+ * @property  {string}  Digest
+ * @property  {string}  DigestEnc
+ * @property  {string}  Type
+ * @property  {string}  Key
+ */
+
+/**
+ *
+ * @param {Object} obj
+ * @returns {HashifyType}
+ * @type {(obj: Object) => HashifyType}
+ */
 export default function HashifyDTO(obj) {
-  // const clone = Object.assign({}, obj); // shallow copy
-  const clone = JSON.parse(JSON.stringify(obj)); // deep copy
   return {
-    Digest: clone.Digest,
-    DigestEnc: clone.DigestEnc,
-    Type: clone.Type,
-    Key: clone.Key,
+    Digest: obj.Digest,
+    DigestEnc: obj.DigestEnc,
+    Type: obj.Type,
+    Key: obj.Key,
   };
 }
