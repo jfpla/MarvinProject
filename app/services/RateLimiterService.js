@@ -9,6 +9,7 @@ export function throttle(callback, interval) {
     if (!enableCall) return;
 
     enableCall = false;
+    console.log("callbackThrottle", callback);
     callback.apply(this, args);
     setTimeout(() => (enableCall = true), interval);
   };
