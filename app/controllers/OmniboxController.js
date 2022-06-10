@@ -1,7 +1,10 @@
 import OmniboxView from "../views/omnibox/OmniboxView.js";
 import { multiSearch } from "../services/api/TMDBApi.js";
 import { throttle } from "../services/RateLimiterService.js";
-import { db as DB } from "../main.js";
+import {
+  getMultiSearchResultsByTitle,
+  saveMultiSearchResult,
+} from "../services/storage/TMDBStorage.js";
 
 function view(callback) {
   return async function (...args) {
@@ -18,45 +21,14 @@ async function querySearch(e) {
   console.log(query);
   e.preventDefault();
 
-  /* Read */
-  async function read(title) {
-    const keyRangeValue = IDBKeyRange.only(title);
-    console.log("keyRangeValue", keyRangeValue);
-    const objectStore = DB.transaction("tmdb_search_results").objectStore(
-      "tmdb_search_results"
-    );
-    const indexRequest = objectStore.index("title").get(keyRangeValue);
-    let results;
-    indexRequest.onsuccess = (e) => {
-      console.log("onSuccess: result", e.target.result);
-      results = e.target.result;
-    };
-    indexRequest.onerror = function (...args) {
-      console.log("onError: this", this);
-      console.log("onError: args", ...args);
-    };
-    console.log("ReSuLTs", results);
-    return results;
+  let result = await getMultiSearchResultsByTitle(query);
+  if (result) {
+    console.log("CACHED_RESULTS", result);
+  } else {
+    result = await multiSearch(query);
+    console.log("API_RESULTS", result);
+    saveMultiSearchResult(query, result);
   }
-
-  await read(query);
-
-  /* Write */
-  function write(result) {
-    const newItem = { title: query, results: result.results };
-    const transaction = DB.transaction(["tmdb_search_results"], "readwrite");
-    const objectStore = transaction.objectStore("tmdb_search_results");
-    const addRequest = objectStore.add(newItem);
-    addRequest.addEventListener("success", () => console.log("Search Stored!"));
-    transaction.addEventListener("complete", () =>
-      console.log("Transaction Completed. DB modification finished.")
-    );
-    transaction.addEventListener("error", () =>
-      console.log("Transaction not opened du to error")
-    );
-  }
-  console.log("__________DB____________:", DB);
-  const result = await multiSearch(query);
 
   return result;
 }
