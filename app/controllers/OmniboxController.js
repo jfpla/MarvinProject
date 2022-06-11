@@ -5,6 +5,7 @@ import {
   getMultiSearchResultsByTitle,
   saveMultiSearchResult,
 } from "../services/storage/TMDBRepository.js";
+import { searchResultsBuilder } from "./SearchResultController.js";
 
 function view(callback) {
   return async function (...args) {
@@ -13,7 +14,14 @@ function view(callback) {
   };
 }
 
-async function querySearch(e) {
+/**
+ * TODO: split this function in two:
+ *  - querySearch with the trigger logic
+ *  - searchProxy to query DB or API
+ * @param e
+ * @return {Promise<MultiSearchType|*>}
+ */
+async function querySearchProxy(e) {
   console.log(e.type);
   const query = e.target.value;
   if (query.length < 4) return;
@@ -43,8 +51,14 @@ const LoadOmniboxController = async () => {
     console.log("Enter");
     e.preventDefault();
   });
-  input.addEventListener("change", throttle(view(querySearch), 300));
-  input.addEventListener("input", throttle(view(querySearch), 300));
+  input.addEventListener(
+    "change",
+    throttle(searchResultsBuilder(querySearchProxy), 300)
+  );
+  input.addEventListener(
+    "input",
+    throttle(searchResultsBuilder(querySearchProxy), 300)
+  );
 };
 
 export default LoadOmniboxController;
