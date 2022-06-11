@@ -1,7 +1,7 @@
 /**
  *
  * @param {IDBOpenDBRequest} request
- * @return {Promise<IDBDatabase>}
+ * @return {Promise<IDBDatabase|*>}
  */
 export function promiseRequest(request) {
   return new Promise((resolve, reject) => {
@@ -40,14 +40,14 @@ async function getDB() {
 
     // Create an objectStore to store our "data" in (basically like a single table)
     // including an auto-incrementing key
-    const objectStore = db.createObjectStore("tmdb_search_results", {
+    const objectStore = db.createObjectStore("tmdb_multi_search", {
       keyPath: "id",
       autoIncrement: true,
     });
 
     // Define what data items the objectStore will contain
-    objectStore.createIndex("title", "title", { unique: true });
-    objectStore.createIndex("results", "results", { unique: false });
+    objectStore.createIndex("query", "query", { unique: true });
+    objectStore.createIndex("response", "response", { unique: false });
 
     console.log("Database setup complete!!");
   };

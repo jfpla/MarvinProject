@@ -1,18 +1,18 @@
 import DB, { promiseRequest } from "./DB.js";
+import MultiSearchDTO from "../../schemas/tmdb/MultiSearchDTO.js";
 
 /**
  *
- * @param {String} title
- * @return {Promise<IDBDatabase>}
+ * @param {String} words
+ * @return {Promise<MultiSearchType|*>}
  */
-export async function getMultiSearchResultsByTitle(title) {
-  const store = DB.transaction("tmdb_search_results").objectStore(
-    "tmdb_search_results"
-  );
-  const indexRequest = store.index("title").get(IDBKeyRange.only(title));
-  return promiseRequest(indexRequest);
-  // console.log("getMultiSearchResultsByTitle: ", result);
-  // return result;
+export async function getMultiSearchResultsByTitle(words) {
+  const store =
+    DB.transaction("tmdb_multi_search").objectStore("tmdb_multi_search");
+  const indexRequest = store.index("query").get(IDBKeyRange.only(words));
+  const data = await promiseRequest(indexRequest);
+  console.log("DATA:", data);
+  if (data) return MultiSearchDTO(data.response);
 }
 
 /**
@@ -20,10 +20,10 @@ export async function getMultiSearchResultsByTitle(title) {
  * @param {MultiSearchType} result
  */
 export function saveMultiSearchResult(title, result) {
-  const data = { title: title, results: result.results };
+  const data = { query: title, response: result };
 
-  const tx = DB.transaction(["tmdb_search_results"], "readwrite");
-  const store = tx.objectStore("tmdb_search_results");
+  const tx = DB.transaction(["tmdb_multi_search"], "readwrite");
+  const store = tx.objectStore("tmdb_multi_search");
 
   const addRequest = store.add(data);
   addRequest.onsuccess = () => console.log("Search Stored!");
