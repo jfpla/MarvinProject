@@ -1,5 +1,8 @@
 #search-result {
-  display: flex;
-  justify-content: space-between;
+  /*display: flex;*/
+  /*justify-content: space-between;*/
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  /*grid-template-rows: repeat(6, 1fr);*/
   border: 1px solid black;
 }

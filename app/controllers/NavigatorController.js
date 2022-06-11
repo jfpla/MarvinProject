@@ -4,7 +4,7 @@ import NavigatorView from "../views/navigator/NavigatorView.js";
 function pushSectionOptions(SectionNode) {
   const fragment = new DocumentFragment();
   for (const sectionKey in NavigatorEnum) {
-    console.log(sectionKey, NavigatorEnum[sectionKey]);
+    // console.log(sectionKey, NavigatorEnum[sectionKey]);
     const option = document.createElement("option");
     option.value = NavigatorEnum[sectionKey];
     option.text = sectionKey;

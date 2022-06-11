@@ -11,7 +11,7 @@ export async function getMultiSearchResultsByTitle(words) {
     DB.transaction("tmdb_multi_search").objectStore("tmdb_multi_search");
   const indexRequest = store.index("query").get(IDBKeyRange.only(words));
   const data = await promiseRequest(indexRequest);
-  console.log("DATA:", data);
+  // console.log("DATA:", data);
   if (data) return MultiSearchDTO(data.response);
 }
 

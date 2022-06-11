@@ -3,7 +3,7 @@
  **/
 
 const getHRef = (relativeUrl, baseUrl) => {
-  console.log(relativeUrl + ", " + baseUrl);
+  // console.log(relativeUrl + ", " + baseUrl);
   return new URL(relativeUrl, baseUrl).href;
 };
 
@@ -31,7 +31,7 @@ const loadHTML = async (
   if (parentSelector) {
     const parentNode = document.querySelector(parentSelector);
     parentNode.append(...templateNode.childNodes); // appendChild(mainContainer);
-    console.log(parentNode);
+    // console.log("postAppend parentNode", parentNode);
     return parentNode;
   }
   return templateNode;

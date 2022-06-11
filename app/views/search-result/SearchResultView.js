@@ -1,14 +1,15 @@
 import { loadCSS, loadHTML } from "../View.js";
 
-const LoadSearchResultView = async () => {
+const SearchResultView = async () => {
   const baseUrl = import.meta.url;
   const searchResultNode = await loadHTML(
     "./SearchResult.html",
     baseUrl,
-    "#search-result__template"
+    "#search-result__template",
+    "main"
   );
   await loadCSS("./SearchResult.css", baseUrl);
   return searchResultNode;
 };
 
-export default LoadSearchResultView;
+export default SearchResultView;
