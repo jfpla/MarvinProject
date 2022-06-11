@@ -4,7 +4,7 @@ import { throttle } from "../services/RateLimiterService.js";
 import {
   getMultiSearchResultsByTitle,
   saveMultiSearchResult,
-} from "../services/storage/TMDBStorage.js";
+} from "../services/storage/TMDBRepository.js";
 
 function view(callback) {
   return async function (...args) {
