@@ -7,11 +7,20 @@ const getHRef = (relativeUrl, baseUrl) => {
   return new URL(relativeUrl, baseUrl).href;
 };
 
+/**
+ * Loads template in the dom when parentSelector is given and returns the Element
+ * When parentSelector is not given returns the template Element.
+ * @param {String} htmlRelativeUrl
+ * @param {String} baseUrl
+ * @param {String} templateSelector
+ * @param {String|null} parentSelector
+ * @return {Promise<Element>}
+ */
 const loadHTML = async (
   htmlRelativeUrl,
   baseUrl,
   templateSelector,
-  parentSelector
+  parentSelector = null
 ) => {
   const htmlUrl = getHRef(htmlRelativeUrl, baseUrl);
 
@@ -19,11 +28,21 @@ const loadHTML = async (
   const template = document.createElement("template");
   template.innerHTML = await response.text();
   const templateNode = template.content.querySelector(templateSelector);
-  const parentNode = document.querySelector(parentSelector);
-  parentNode.append(...templateNode.childNodes); // appendChild(mainContainer);
-  return parentNode;
+  if (parentSelector) {
+    const parentNode = document.querySelector(parentSelector);
+    parentNode.append(...templateNode.childNodes); // appendChild(mainContainer);
+    console.log(parentNode);
+    return parentNode;
+  }
+  return templateNode;
 };
 
+/**
+ * Loads and links the css in the index.html head
+ * @param {String} cssRelativeUrl
+ * @param {String} baseUrl
+ * @return {Promise<Response>}
+ */
 const loadCSS = async (cssRelativeUrl, baseUrl) => {
   const cssHRef = getHRef(cssRelativeUrl, baseUrl);
   return fetch(cssHRef).then(() => {
