@@ -15,11 +15,10 @@ import { searchResultsBuilder } from "./SearchResultController.js";
  * @return {Promise<MultiSearchType|*>}
  */
 async function querySearchProxy(e) {
-  // console.log(e.type);
   const query = e.target.value;
   if (query.length < 4) return;
+  console.log(`${e.type} | ${query}`, e);
 
-  // console.log(query);
   e.preventDefault();
 
   let result = await getMultiSearchResultsByTitle(query);
@@ -46,11 +45,11 @@ const LoadOmniboxController = async () => {
   });
   input.addEventListener(
     "change",
-    throttle(searchResultsBuilder(querySearchProxy), 300)
+    throttle(searchResultsBuilder(querySearchProxy), 150)
   );
   input.addEventListener(
     "input",
-    throttle(searchResultsBuilder(querySearchProxy), 300)
+    throttle(searchResultsBuilder(querySearchProxy), 150)
   );
 };
 

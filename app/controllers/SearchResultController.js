@@ -4,11 +4,12 @@ import CardController from "./CardController.js";
 /**
  * TODO: Make sure SearchResultView is executed only once.
  *  Currently the OmniboxController may call this method
- *  triggered by two Events (onChange and onInput).
+ *  twice triggered by two Events (onChange and onInput).
  * @param {MultiSearchType} data
  * @return {Promise<void>}
  */
 const LoadSearchResultController = async (data) => {
+  if (!data) return;
   const searchResultNode = await SearchResultView();
   // console.log(searchResultNode);
   const fragment = document.createDocumentFragment();
