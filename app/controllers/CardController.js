@@ -19,7 +19,7 @@ const LoadCardController = async (data) => {
     title.textContent = data.name;
     body.textContent = data.known_for_department;
   }
-  return cardTemplate.cloneNode(true);
+  return cardTemplate.cloneNode(true).childNodes;
 };
 
 export default LoadCardController;

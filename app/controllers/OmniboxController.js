@@ -43,10 +43,11 @@ const LoadOmniboxController = async () => {
     console.log("Enter");
     e.preventDefault();
   });
-  input.addEventListener(
-    "change",
-    throttle(searchResultsBuilder(querySearchProxy), 150)
-  );
+  /*having "change" refreshes the view on changing focus*/
+  // input.addEventListener(
+  //   "change",
+  //   throttle(searchResultsBuilder(querySearchProxy), 150)
+  // );
   input.addEventListener(
     "input",
     throttle(searchResultsBuilder(querySearchProxy), 150)
