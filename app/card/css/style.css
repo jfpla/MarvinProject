@@ -124,6 +124,7 @@ img {
   flex-direction: column;
   align-items: center;
   gap: 1.5em;
+  transform: translateY(35%);
 }
 .back .streaming-info {
   /*margin: 1em 0; We are using .back {gap} property for that*/
@@ -182,6 +183,8 @@ img {
 
 .game:hover .back {
   opacity: 1;
+  transform: translateY(0);
+  transition: transform 250ms ease, opacity 150ms linear;
 }
 
 .game:hover .background {
