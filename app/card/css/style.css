@@ -116,6 +116,10 @@ img {
   transform: translateY(-30%) scale(0.8);
 }
 
+.game:hover .front .name {
+  animation: gameName 250ms forwards;
+}
+
 .game:hover .front .stats {
   opacity: 0;
 }
@@ -125,4 +129,26 @@ img {
     opacity 100ms linear;
   opacity: 1;
   transform: scale(1.4, 1.2);
+}
+
+@keyframes gameName {
+  0% {
+    text-align: left;
+    opacity: 1;
+  }
+  20% {
+    text-align: left;
+    opacity: 0;
+  }
+
+  50% {
+    text-align: center;
+    opacity: 0;
+    transform: scale(1.2);
+  }
+  100% {
+    text-align: center;
+    opacity: 1;
+    transform: scale(1.2);
+  }
 }
