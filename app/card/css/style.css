@@ -9,7 +9,7 @@
   --clr-light: #fff;
   --clr-accent: rgb(222, 52, 0);
   --clr-accent-dark: rgb(163, 38, 0);
-  --clr-secondary: rgb(0, 62, 163);
+  --clr-secondary: rgb(0, 76, 199);
 
   /*border-radius*/
   --br: 0.5em;
@@ -34,6 +34,16 @@ p {
   margin: 0;
 }
 
+.btn {
+  cursor: pointer;
+  border: 0;
+  background-color: var(--clr-secondary);
+  border-radius: 100vw;
+  color: var(--clr-light);
+  font-weight: bold;
+  padding: 0.5em 1.5em;
+}
+
 img {
   max-width: 100%;
 }
@@ -42,10 +52,12 @@ img {
   position: relative;
   /*max-width allows shrink?*/
   width: 12.5em;
+  cursor: pointer;
 }
 
 .streamers {
   display: flex;
+  text-align: center;
 }
 
 .streamers img {
@@ -102,7 +114,39 @@ img {
 }
 
 .back {
-  display: none;
+  opacity: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+.back .streaming-info {
+  /*margin: 1em 0; We are using .back {gap} property for that*/
+  columns: 2;
+  column-rule: 1px solid rgba(255, 255, 255, 0.25);
+}
+.back .game-stat {
+  font-size: 1.125rem;
+  text-align: center;
+}
+.back .game-stat span {
+  font-size: 0.85rem;
+  display: block;
+}
+
+.back .streamers {
+  width: 100%;
+  justify-content: space-between;
+}
+.back .streamer {
+  font-size: 0.9rem;
+}
+.back .name {
+  font-weight: bold;
 }
 
 .background {
@@ -133,6 +177,10 @@ img {
 
 .game:hover .front .stats {
   opacity: 0;
+}
+
+.game:hover .back {
+  opacity: 1;
 }
 
 .game:hover .background {
