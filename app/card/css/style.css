@@ -116,13 +116,14 @@ img {
 .back {
   opacity: 0;
   position: absolute;
-  bottom: 0;
+  /*bottom: 0; replaced by top: 60%*/
+  top: 60%;
   left: 0;
   right: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1em;
+  gap: 1.5em;
 }
 .back .streaming-info {
   /*margin: 1em 0; We are using .back {gap} property for that*/
@@ -150,7 +151,7 @@ img {
 }
 
 .background {
-  background: #234;
+  background: rgb(40, 46, 54);
   position: absolute;
   top: 0;
   bottom: 0;
@@ -163,8 +164,8 @@ img {
 }
 
 .game:hover .rank {
-  transform: translate(150%, -90%);
-  /*background-color: red;*/
+  /*transform: translate(150%, -90%);*/
+  transform: translate(150%, -56%);
 }
 
 .game:hover .front {
@@ -186,7 +187,8 @@ img {
 .game:hover .background {
   transition: var(--bg-transition), opacity 100ms linear;
   opacity: 1;
-  transform: scale(1.4, 1.2);
+  /*transform: scale(1.4, 1.2);*/
+  transform: scale(1.35, 1.2) translateY(3%);
 }
 
 @keyframes gameName {
