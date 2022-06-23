@@ -186,6 +186,8 @@ img {
   clip-path: url(#wave);
   height: 30%;
   width: 100%;
+  object-fit: cover;
+  object-position: top center;
 }
 
 .game:hover .rank {
