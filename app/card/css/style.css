@@ -100,6 +100,26 @@ img {
   /*border: 1px solid red;*/
 }
 
+.front .viewers {
+  display: flex;
+  align-items: center;
+}
+
+.front .viewers::before {
+  content: "\f007";
+  display: inline-block;
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+
+  color: #fffb;
+  font-style: normal;
+  font-variant: normal;
+  font-size: 0.75em;
+  margin-right: 0.5em;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
 .front .streamers img {
   border: 2px solid var(--clr-dark);
 }
