@@ -26,6 +26,14 @@ const LoadCardController = async (data) => {
   const voteCnt = cardTemplate.querySelector(
     ".back > .streaming-info > p:last-child"
   );
+  // const overview = cardTemplate.querySelector(".back > p:first-of-type");
+  const btnWatchlist = cardTemplate.querySelector(
+    ".back > .buttons > button:first-child"
+  );
+  const btnDetails = cardTemplate.querySelector(
+    ".back > .buttons > button:last-child"
+  );
+  console.log(btnWatchlist, btnDetails);
 
   viewers.textContent = data.popularity.toFixed().toString();
   switch (data.media_type) {
@@ -63,6 +71,7 @@ const LoadCardController = async (data) => {
       rank.classList.add("fa-tv");
       voteAvg.firstChild.textContent = data.vote_average.toFixed().toString();
       voteCnt.firstChild.textContent = data.vote_count.toFixed().toString();
+      // overview.textContent = data.overview;
       break;
     case "movie":
       if (data.backdrop_path || data.poster_path) {
@@ -84,6 +93,7 @@ const LoadCardController = async (data) => {
       rank.classList.add("fa-video");
       voteAvg.firstChild.textContent = data.vote_average.toFixed().toString();
       voteCnt.firstChild.textContent = data.vote_count.toFixed().toString();
+      // overview.textContent = data.overview;
       break;
     default:
       console.log("Unknown data type");

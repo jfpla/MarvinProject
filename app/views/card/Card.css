@@ -8,6 +8,11 @@
 /*  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.6);*/
 /*}*/
 
+.buttons {
+  display: flex;
+  flex-direction: column;
+}
+
 .btn {
   cursor: pointer;
   border: 0;
@@ -15,7 +20,12 @@
   border-radius: 100vw;
   color: var(--clr-light);
   font-weight: bold;
-  padding: 0.5em 1.5em;
+  padding: 0.5em 1.45em;
+  margin: 0.5em;
+}
+
+.btn-selected {
+  background-color: var(--clr-accent-dark);
 }
 
 img {
@@ -26,7 +36,7 @@ img {
   position: relative;
   /*max-width allows shrink?*/
   width: 12.5em;
-  cursor: pointer;
+  /*cursor: pointer;*/
 }
 
 .streamers {
