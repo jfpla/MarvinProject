@@ -1,6 +1,10 @@
 import CardView from "../views/card/CardView.js";
 import { fetchMovie, fetchPerson, fetchTV } from "../services/api/TMDBApi.js";
 import {
+  deletePersonById,
+  getMovieById,
+  getPersonById,
+  getTVById,
   saveMovie,
   savePerson,
   saveTV,
@@ -40,10 +44,11 @@ const LoadCardController = async (data) => {
     ".back > .buttons > button:last-child"
   );
   // console.log(btnWatchlist, btnDetails);
-
+  let storedItem;
   viewers.textContent = data.popularity.toFixed().toString();
   switch (data.media_type) {
     case "person":
+      storedItem = await getPersonById(data.id);
       if (data.profile_path) {
         imgProfile = `${imgBaseUrl}/${imgProfileRes}/${data.profile_path}`;
         thumbnail.src = imgProfile;
@@ -58,6 +63,7 @@ const LoadCardController = async (data) => {
       voteCnt.lastChild.textContent = "Known for";
       break;
     case "tv":
+      storedItem = await getTVById(data.id);
       if (data.backdrop_path || data.poster_path) {
         imgBack = `${imgBaseUrl}/${imgBackRes}/${
           data.backdrop_path || data.poster_path
@@ -80,6 +86,7 @@ const LoadCardController = async (data) => {
       // overview.textContent = data.overview;
       break;
     case "movie":
+      storedItem = await getMovieById(data.id);
       if (data.backdrop_path || data.poster_path) {
         imgBack = `${imgBaseUrl}/${imgBackRes}/${
           data.backdrop_path || data.poster_path
@@ -113,6 +120,11 @@ const LoadCardController = async (data) => {
     };
   };
 
+  if (storedItem) {
+    console.log(storedItem);
+    btnSelectCallback(btnWatchlist)();
+  }
+
   btnWatchlist.addEventListener("click", (e) => {
     console.log("Click:", e);
   });
@@ -142,11 +154,18 @@ const LoadCardController = async (data) => {
           break;
         case "person":
         default:
-          await savePerson(
-            data.id,
-            await fetchPerson(data.id),
-            btnSelectCallback(btnW)
-          );
+          if (storedItem) {
+            await deletePersonById(storedItem.id, () => {
+              btnW.classList.remove("btn-selected");
+              btnW.textContent = "Add to Watchlist";
+            });
+          } else {
+            await savePerson(
+              data.id,
+              await fetchPerson(data.id),
+              btnSelectCallback(btnW)
+            );
+          }
           break;
       }
     });

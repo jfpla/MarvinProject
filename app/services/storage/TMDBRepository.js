@@ -101,8 +101,18 @@ export async function getPersonById(id) {
   const store = DB.transaction("tmdb_person").objectStore("tmdb_person");
   const indexRequest = store.index("person_id").get(IDBKeyRange.only(id));
   const data = await promiseRequest(indexRequest);
-  // console.log("DATA:", data);
-  if (data) return data.response;
+  console.log("DATA:", data);
+  if (data) return data;
+}
+
+export async function deletePersonById(id, callback) {
+  const tx = DB.transaction("tmdb_person", "readwrite");
+  const request = tx.objectStore("tmdb_person").delete(IDBKeyRange.only(id));
+
+  tx.oncomplete = () => {
+    callback();
+    console.log("Deleted Person", id);
+  };
 }
 
 export async function savePerson(id, result, callback) {
