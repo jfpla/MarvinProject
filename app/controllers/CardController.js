@@ -1,9 +1,15 @@
 import CardView from "../views/card/CardView.js";
+import { fetchMovie, fetchPerson, fetchTV } from "../services/api/TMDBApi.js";
+import {
+  saveMovie,
+  savePerson,
+  saveTV,
+} from "../services/storage/TMDBRepository.js";
 
 /**
  *
  * @param {(TVShowType|MovieShowType|PersonType)} data
- * @return {Promise<Node>}
+ * @return {Promise<Node[]>}
  */
 const LoadCardController = async (data) => {
   const cardTemplate = await CardView();
@@ -33,7 +39,7 @@ const LoadCardController = async (data) => {
   const btnDetails = cardTemplate.querySelector(
     ".back > .buttons > button:last-child"
   );
-  console.log(btnWatchlist, btnDetails);
+  // console.log(btnWatchlist, btnDetails);
 
   viewers.textContent = data.popularity.toFixed().toString();
   switch (data.media_type) {
@@ -100,7 +106,53 @@ const LoadCardController = async (data) => {
       break;
   }
 
-  return cardTemplate.cloneNode(true).childNodes;
+  const btnSelectCallback = (btn) => {
+    return () => {
+      btn.classList.add("btn-selected");
+      btn.textContent = "Remove from Watchlist";
+    };
+  };
+
+  btnWatchlist.addEventListener("click", (e) => {
+    console.log("Click:", e);
+  });
+
+  const clone = [...cardTemplate.cloneNode(true).childNodes];
+  clone.forEach((node) => {
+    // An Element Node Type (1) is needed. https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType
+    if (node.nodeType !== 1) return;
+
+    const btnW = node.querySelector(".back > .buttons > button:first-child");
+    btnW.addEventListener("click", async (e) => {
+      console.log("Click:", data.media_type, e);
+      switch (data.media_type) {
+        case "movie":
+          await saveMovie(
+            data.id,
+            await fetchMovie(data.id),
+            btnSelectCallback(btnW)
+          );
+          break;
+        case "tv":
+          await saveTV(
+            data.id,
+            await fetchTV(data.id),
+            btnSelectCallback(btnW)
+          );
+          break;
+        case "person":
+        default:
+          await savePerson(
+            data.id,
+            await fetchPerson(data.id),
+            btnSelectCallback(btnW)
+          );
+          break;
+      }
+    });
+  });
+
+  return clone;
 };
 
 export default LoadCardController;
