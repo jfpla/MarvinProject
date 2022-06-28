@@ -19,13 +19,15 @@ const LoadCardController = async (data) => {
   const title = cardTemplate.querySelector(".front .name");
   const background = cardTemplate.querySelector(".background img");
   const rank = cardTemplate.querySelector(".rank i");
-
   switch (data.media_type) {
     case "person":
       if (data.profile_path) {
         imgProfile = `${imgBaseUrl}/${imgProfileRes}/${data.profile_path}`;
         thumbnail.src = imgProfile;
         background.src = imgProfile;
+      } else {
+        thumbnail.src = "views/card/img/person-thumbnail.svg";
+        background.src = "views/card/img/movie-thumbnail.svg";
       }
       title.textContent = data.name;
       break;
@@ -39,6 +41,9 @@ const LoadCardController = async (data) => {
         }`;
         thumbnail.src = imgPoster;
         background.src = imgBack;
+      } else {
+        thumbnail.src = "views/card/img/tv-thumbnail.svg";
+        background.src = "views/card/img/tv-background.svg";
       }
 
       title.textContent = data.name;
@@ -55,6 +60,9 @@ const LoadCardController = async (data) => {
         }`;
         thumbnail.src = imgPoster;
         background.src = imgBack;
+      } else {
+        thumbnail.src = "views/card/img/movie-thumbnail.svg";
+        background.src = "views/card/img/movie-background.svg";
       }
 
       title.textContent = data.title;
