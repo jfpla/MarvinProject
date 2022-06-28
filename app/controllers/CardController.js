@@ -18,6 +18,7 @@ const LoadCardController = async (data) => {
   const thumbnail = cardTemplate.querySelector(".front .thumbnail");
   const title = cardTemplate.querySelector(".front .name");
   const background = cardTemplate.querySelector(".background img");
+  const rank = cardTemplate.querySelector(".rank i");
 
   switch (data.media_type) {
     case "person":
@@ -41,6 +42,8 @@ const LoadCardController = async (data) => {
       }
 
       title.textContent = data.name;
+      rank.classList.remove("fa-user");
+      rank.classList.add("fa-tv");
       break;
     case "movie":
       if (data.backdrop_path || data.poster_path) {
@@ -55,6 +58,8 @@ const LoadCardController = async (data) => {
       }
 
       title.textContent = data.title;
+      rank.classList.remove("fa-user");
+      rank.classList.add("fa-video");
       break;
     default:
       console.log("Unknown data type");
