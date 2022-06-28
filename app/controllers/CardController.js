@@ -19,6 +19,15 @@ const LoadCardController = async (data) => {
   const title = cardTemplate.querySelector(".front .name");
   const background = cardTemplate.querySelector(".background img");
   const rank = cardTemplate.querySelector(".rank i");
+  const viewers = cardTemplate.querySelector(".viewers");
+  const voteAvg = cardTemplate.querySelector(
+    ".back > .streaming-info > p:first-child"
+  );
+  const voteCnt = cardTemplate.querySelector(
+    ".back > .streaming-info > p:last-child"
+  );
+
+  viewers.textContent = data.popularity.toFixed().toString();
   switch (data.media_type) {
     case "person":
       if (data.profile_path) {
@@ -30,6 +39,9 @@ const LoadCardController = async (data) => {
         background.src = "views/card/img/movie-thumbnail.svg";
       }
       title.textContent = data.name;
+      voteAvg.firstChild.textContent = viewers.textContent;
+      voteCnt.firstChild.textContent = data.known_for_department;
+      voteCnt.lastChild.textContent = "Known for";
       break;
     case "tv":
       if (data.backdrop_path || data.poster_path) {
@@ -49,6 +61,8 @@ const LoadCardController = async (data) => {
       title.textContent = data.name;
       rank.classList.remove("fa-user");
       rank.classList.add("fa-tv");
+      voteAvg.firstChild.textContent = data.vote_average.toFixed().toString();
+      voteCnt.firstChild.textContent = data.vote_count.toFixed().toString();
       break;
     case "movie":
       if (data.backdrop_path || data.poster_path) {
@@ -68,6 +82,8 @@ const LoadCardController = async (data) => {
       title.textContent = data.title;
       rank.classList.remove("fa-user");
       rank.classList.add("fa-video");
+      voteAvg.firstChild.textContent = data.vote_average.toFixed().toString();
+      voteCnt.firstChild.textContent = data.vote_count.toFixed().toString();
       break;
     default:
       console.log("Unknown data type");
