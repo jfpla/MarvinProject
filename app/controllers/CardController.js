@@ -7,18 +7,60 @@ import CardView from "../views/card/CardView.js";
  */
 const LoadCardController = async (data) => {
   const cardTemplate = await CardView();
-  // const title = cardTemplate.querySelector(".card__title");
-  // const body = cardTemplate.querySelector(".card__body");
-  // if (data.media_type === "movie") {
-  //   title.textContent = data.title;
-  //   body.textContent = data.overview;
-  // } else if (data.media_type === "tv") {
-  //   title.textContent = data.name;
-  //   body.textContent = data.overview;
-  // } else {
-  //   title.textContent = data.name;
-  //   body.textContent = data.known_for_department;
-  // }
+  const imgBaseUrl = "https://image.tmdb.org/t/p";
+  const imgBackRes = "w300";
+  const imgPosterRes = "w342";
+  const imgProfileRes = "w185";
+  let imgBack = "";
+  let imgPoster = "";
+  let imgProfile = "";
+
+  const thumbnail = cardTemplate.querySelector(".front .thumbnail");
+  const title = cardTemplate.querySelector(".front .name");
+  const background = cardTemplate.querySelector(".background img");
+
+  switch (data.media_type) {
+    case "person":
+      if (data.profile_path) {
+        imgProfile = `${imgBaseUrl}/${imgProfileRes}/${data.profile_path}`;
+        thumbnail.src = imgProfile;
+        background.src = imgProfile;
+      }
+      title.textContent = data.name;
+      break;
+    case "tv":
+      if (data.backdrop_path || data.poster_path) {
+        imgBack = `${imgBaseUrl}/${imgBackRes}/${
+          data.backdrop_path || data.poster_path
+        }`;
+        imgPoster = `${imgBaseUrl}/${imgPosterRes}/${
+          data.poster_path || data.backdrop_path
+        }`;
+        thumbnail.src = imgPoster;
+        background.src = imgBack;
+      }
+
+      title.textContent = data.name;
+      break;
+    case "movie":
+      if (data.backdrop_path || data.poster_path) {
+        imgBack = `${imgBaseUrl}/${imgBackRes}/${
+          data.backdrop_path || data.poster_path
+        }`;
+        imgPoster = `${imgBaseUrl}/${imgPosterRes}/${
+          data.poster_path || data.backdrop_path
+        }`;
+        thumbnail.src = imgPoster;
+        background.src = imgBack;
+      }
+
+      title.textContent = data.title;
+      break;
+    default:
+      console.log("Unknown data type");
+      break;
+  }
+
   return cardTemplate.cloneNode(true).childNodes;
 };
 
