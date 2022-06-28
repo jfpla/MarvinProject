@@ -41,10 +41,14 @@ const loadHTML = async (
  * Loads and links the css in the index.html head
  * @param {String} cssRelativeUrl
  * @param {String} baseUrl
- * @return {Promise<Response>}
+ * @return {Promise<Response|*>}
  */
 const loadCSS = async (cssRelativeUrl, baseUrl) => {
   const cssHRef = getHRef(cssRelativeUrl, baseUrl);
+  const cssHrefExist = [...document.getElementsByTagName("link")].some((l) =>
+    l.href?.includes(cssHRef)
+  );
+  if (cssHrefExist) return;
   return fetch(cssHRef).then(() => {
     const cssLink = document.createElement("link");
     cssLink.rel = "stylesheet";
