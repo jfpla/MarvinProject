@@ -1,0 +1,9 @@
+.avatar__content {
+  height: 100%;
+  width: 100%;
+  /*background-color: yellow;*/
+}
+
+.avatar__content img {
+  border-radius: 50%;
+}
