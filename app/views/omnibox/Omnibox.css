@@ -7,12 +7,7 @@
 .omnibox form input {
   /*height: 100%; !* no sembla necessari *!*/
   width: 100%;
-}
-
-.omnibox p {
-  background-color: yellow;
-}
-
-.omnibox span {
-  background-color: blueviolet;
+  border-radius: 100vh;
+  padding: 1em;
+  font-size: large;
 }
