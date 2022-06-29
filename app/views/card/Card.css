@@ -1,9 +1,227 @@
-.card {
-  flex: 1;
-  background: #0a51cc;
-  color: white;
-  border-radius: 10px;
-  margin: 20px 10px;
-  padding: 15px 20px;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.6);
+/*.card {*/
+/*  flex: 1;*/
+/*  background: #0a51cc;*/
+/*  color: white;*/
+/*  border-radius: 10px;*/
+/*  margin: 20px 10px;*/
+/*  padding: 15px 20px;*/
+/*  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.6);*/
+/*}*/
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn {
+  cursor: pointer;
+  border: 0;
+  background-color: var(--clr-secondary);
+  border-radius: 100vw;
+  color: var(--clr-light);
+  font-weight: bold;
+  padding: 0.5em 1.45em;
+  margin: 0.5em;
+}
+
+.btn-selected {
+  background-color: var(--clr-accent-dark);
+}
+
+img {
+  max-width: 100%;
+}
+
+.game {
+  position: relative;
+  /*max-width allows shrink?*/
+  width: 12.5em;
+  /*cursor: pointer;*/
+}
+
+.streamers {
+  display: flex;
+  text-align: center;
+}
+
+.streamers img {
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+}
+
+.rank {
+  position: absolute;
+  top: 0;
+  right: 1em;
+  z-index: 1000;
+  font-weight: bold;
+  font-size: 1.125rem;
+  background: rgba(0, 0, 0, 0.65);
+  /*background: rgba(255, 255, 255, 0.65);*/
+  padding: 0.5em 0.5em 0.75em;
+  clip-path: polygon(100% 0, 100% 100%, 50% 85%, 0 100%, 0 0);
+  transition: var(--bg-transition);
+}
+
+.front {
+  transition: 250ms;
+}
+
+.front .thumbnail {
+  border-radius: var(--br);
+}
+
+.front .name {
+  /*text-align: center;*/
+  margin: 0.75em 0;
+}
+
+.front .stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /*border: 1px solid red;*/
+}
+
+.front .viewers {
+  display: flex;
+  align-items: center;
+}
+
+.front .viewers::before {
+  content: "\f007";
+  display: inline-block;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  font: var(--fa-font-solid);
+  color: #fffb;
+  font-size: 0.75em;
+  margin-right: 0.5em;
+}
+
+.front .streamers img {
+  border: 2px solid var(--clr-dark);
+}
+
+.front .streamers img:nth-of-type(1) {
+  transform: translateX(50%);
+  z-index: 1;
+}
+
+.front .streamers img:nth-of-type(2) {
+  transform: translateX(25%);
+}
+
+.back {
+  opacity: 0;
+  position: absolute;
+  /*bottom: 0; replaced by top: 60%*/
+  top: 60%;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5em;
+  transform: translateY(35%);
+}
+.back .streaming-info {
+  /*margin: 1em 0; We are using .back {gap} property for that*/
+  columns: 2;
+  column-rule: 1px solid rgba(255, 255, 255, 0.25);
+}
+.back .game-stat {
+  font-size: 1.125rem;
+  text-align: center;
+}
+.back .game-stat span {
+  font-size: 0.85rem;
+  display: block;
+}
+
+.back .streamers {
+  width: 100%;
+  justify-content: space-between;
+}
+.back .streamer {
+  font-size: 0.9rem;
+}
+.back .name {
+  font-weight: bold;
+}
+
+.background {
+  background: rgb(40, 46, 54);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  transform: scale(0.2, 0.9);
+  opacity: 0;
+  border-radius: var(--br);
+  overflow: hidden;
+}
+
+.background img {
+  opacity: 0.3;
+  clip-path: url(#wave);
+  height: 30%;
+  width: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.game:hover .rank {
+  /*transform: translate(150%, -90%);*/
+  transform: translate(150%, -56%);
+}
+
+.game:hover .front {
+  transform: translateY(-30%) scale(0.8);
+}
+
+.game:hover .front .name {
+  animation: gameName 250ms forwards;
+}
+
+.game:hover .front .stats {
+  opacity: 0;
+}
+
+.game:hover .back {
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform 250ms ease, opacity 150ms linear;
+}
+
+.game:hover .background {
+  transition: var(--bg-transition), opacity 100ms linear;
+  opacity: 1;
+  /*transform: scale(1.4, 1.2);*/
+  transform: scale(1.35, 1.2) translateY(3%);
+}
+
+@keyframes gameName {
+  0% {
+    text-align: left;
+    opacity: 1;
+  }
+  20% {
+    text-align: left;
+    opacity: 0;
+  }
+
+  50% {
+    text-align: center;
+    opacity: 0;
+    transform: scale(1.2);
+  }
+  100% {
+    text-align: center;
+    opacity: 1;
+    transform: scale(1.2);
+  }
 }

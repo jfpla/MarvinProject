@@ -15,7 +15,7 @@ const LoadSearchResultController = async (data) => {
   const fragment = document.createDocumentFragment();
   for (const item of data.results) {
     const card = await CardController(item);
-    fragment.appendChild(card);
+    fragment.append(...card);
   }
   searchResultNode.querySelector("#search-result").appendChild(fragment);
 };

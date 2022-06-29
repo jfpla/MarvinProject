@@ -5,13 +5,46 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Jordi Francesc" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <title>MarvinProject</title>
     <style>
-      * {
+      *,
+      *::before,
+      *::after {
         box-sizing: border-box;
+      }
+      :root {
+        --clr-dark: rgb(13, 17, 19);
+        --clr-light: #fff;
+        --clr-accent: rgb(222, 52, 0);
+        --clr-accent-dark: rgb(163, 38, 0);
+        --clr-secondary: rgb(0, 76, 199);
+
+        /*border-radius*/
+        --br: 0.5em;
+
+        /*background transition*/
+        --bg-transition: transform 200ms cubic-bezier(0.21, 1, 0.81, 1);
+      }
+      body {
         font-family: sans-serif;
-        font-weight: 100;
-        padding: 5px;
+        min-height: 100vh;
+        /*display: grid;*/
+        /*place-items: center;*/
+        background: var(--clr-dark);
+        color: var(--clr-light);
+      }
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
       }
     </style>
   </head>

@@ -40,14 +40,31 @@ async function getDB() {
 
     // Create an objectStore to store our "data" in (basically like a single table)
     // including an auto-incrementing key
-    const objectStore = db.createObjectStore("tmdb_multi_search", {
+    const multiSearchStore = db.createObjectStore("tmdb_multi_search", {
+      keyPath: "id",
+      autoIncrement: true,
+    });
+    const movieStore = db.createObjectStore("tmdb_movie", {
+      keyPath: "id",
+      autoIncrement: true,
+    });
+
+    const tvStore = db.createObjectStore("tmdb_tv", {
+      keyPath: "id",
+      autoIncrement: true,
+    });
+    const personStore = db.createObjectStore("tmdb_person", {
       keyPath: "id",
       autoIncrement: true,
     });
 
     // Define what data items the objectStore will contain
-    objectStore.createIndex("query", "query", { unique: true });
-    objectStore.createIndex("response", "response", { unique: false });
+    multiSearchStore.createIndex("query", "query", { unique: true });
+    multiSearchStore.createIndex("response", "response", { unique: false });
+
+    movieStore.createIndex("movie_id", "movie_id", { unique: true });
+    tvStore.createIndex("tv_id", "tv_id", { unique: true });
+    personStore.createIndex("person_id", "person_id", { unique: true });
 
     console.log("Database setup complete!!");
   };
