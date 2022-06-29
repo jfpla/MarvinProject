@@ -1,5 +1,15 @@
 # Diari sobre el procés de planificació i desenvolupament
 
+
+## (2022-06-29) Retocs i Documentació
+- Es mou el codi produït en copiar la carta de Kevin Powell al seu propi projecte
+  [github/jfpla/card-exercise](https://github.com/jfpla/card-exercise).
+- S'afegeixen funcions per eliminar els items guardats al WatchList.
+- Es retoca la capçalera de l'app. Allà on resideix la caixa de cerca.
+- S'elimina el NavigatorController perquè no hi ha temps a implementar la seva 
+funcionalitat.
+- Es reprèn la feina de documentació.
+
 ## (2022-06-28) Integració de la Card de Kevin Powell
 - Es refactoritza l'HTML i estils de la carta per adaptar-la al nostre cas d'ús.
 - Quan l'API no torna imatges se n'afegeixen unes genèriques de tipus placeholder.
@@ -15,8 +25,6 @@ mitjançant nova crida a l'API.
 - El botó, a part d'executar la consulta contra la DB o l'API, passa un callback 
 a les funcions del repositori per modificar el seu estil quan la transacció 
 s'ha acabat.
-- Es mou el codi produït en copiar la carta de Kevin Powell al seu propi projecte 
-[github/jfpla/card-exercise](https://github.com/jfpla/card-exercise).
 
 ## (2022-06-22) Es comença a copiar la Card de Kevin Powell 
 - Es decideix utilitzar un sol EvenListener a l'Omnibox controller. Abans 
