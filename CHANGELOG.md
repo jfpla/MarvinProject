@@ -1,7 +1,22 @@
 # Diari sobre el procés de planificació i desenvolupament
 
+## (2022-06-11) Components SearchResults i Card 
+- Una primera aproximació als components SearchResults i Card per començar a pintar 
+resultats.
+- Es refactoritza la funció que carrega l'HTML per tenir més flexibilitat en 
+inserir els Cards dins el SearchResults.
+- S'afegeixen els controladors corresponents als components anteriors per pintar 
+les dades. 
+- El controlador de la cerca s'invoca indirectament mitjançant una high order function
+que serà usada com a callback quan es dispara la cerca.
+
+## (2022-06-10) Experimentant amb IndexedDB
+- Setup de la DB
+- Omnibox recupera resultats de la DB quan hi són i en cas contrari els guarda després 
+de cridar a l'API
+
 ## (2022-05-31) TMDB DTOs, Type annotations and view callback experiment
-- Es comencen a estructurar els DTOs de l'API i les relacions entre ells
+- Es comencen a estructurar els DTO's de l'API i les relacions entre ells
 - S'hi afegeixen Type Annotations. Molt més tard es descobrirà que només són útils per 
 documentar i ajudar a l'editor a auto completar les propietats dels DTO. El typeof no 
 serveix per conèixer el tipus d'objecte en temps d'execució. 
