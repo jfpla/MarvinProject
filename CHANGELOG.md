@@ -1,5 +1,12 @@
 # Diari sobre el procés de planificació i desenvolupament
 
+## (2022-05-31) TMDB DTOs, Type annotations and view callback experiment
+- Es comencen a estructurar els DTOs de l'API i les relacions entre ells
+- S'hi afegeixen Type Annotations. Molt més tard es descobrirà que només són útils per 
+documentar i ajudar a l'editor a auto completar les propietats dels DTO. El typeof no 
+serveix per conèixer el tipus d'objecte en temps d'execució. 
+- S'experimenta amb la creació d'una funció callback high order per cridar a la vista
+
 ## (2022-05-27) Es comença a programar el funcionament de l'Omnibox
 - OmniboxController utilitza el mecanisme de throttling per minimitzar les
 crides a l'API externa i obtenir resultats a mesura que l'usuari va escrivint.
