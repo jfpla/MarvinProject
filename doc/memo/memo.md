@@ -317,13 +317,14 @@ https://m3.material.io/styles/color/the-color-system/key-colors-tones
 
 # CHANGELOG
 
-| Hores  | Tipus   | Inici      | Fi |
-|--------|---------|------------|----|
+## Temps invertit
+| Hores   | Tipus   | Inici      | Fi |
+|---------|---------|------------|----|
 | 11h 33m | planning | 2022-04-07 | 2022-04-25|
 | 32h 08m | desing  | 2022-04-25 | 2022-05-27|
 | 39h 47m | devel   | 2022-05-31 |  2022-06-29|
-| ~+3h   | memo    | 2022-04-07 | 2022-06-29|
-**86h 28m Total**
+| 3h 27m  | memo    | 2022-04-07 | 2022-06-29|
+**86h 55m Total**
 
 
 Diari sobre el procés de planificació i desenvolupament
