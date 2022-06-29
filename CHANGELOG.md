@@ -1,5 +1,23 @@
 # Diari sobre el procés de planificació i desenvolupament
 
+## (2022-06-28) Integració de la Card de Kevin Powell
+- Es refactoritza l'HTML i estils de la carta per adaptar-la al nostre cas d'ús.
+- Quan l'API no torna imatges se n'afegeixen unes genèriques de tipus placeholder.
+- S'afegeixen icones FontAwesome per distingir el tipus de resultats.
+- Es mostren les estadístiques del contingut. 
+- S'arreglen bugs relacionats amb com es carreguen els assets.
+- Es refactoritza el controlador de la carta.
+- S'afegeixen noves taules a la DB per emmagatzemar dades extra sobre els diferents 
+tipus de contingut.
+- S'afegeixen noves funcions al repositori per gestionar les dades.
+- S'afegeix un botó per guardar a la DB informació extra sobre el contingut 
+mitjançant nova crida a l'API.
+- El botó, a part d'executar la consulta contra la DB o l'API, passa un callback 
+a les funcions del repositori per modificar el seu estil quan la transacció 
+s'ha acabat.
+- Es mou el codi produït en copiar la carta de Kevin Powell al seu propi projecte 
+[github/jfpla/card-exercise](https://github.com/jfpla/card-exercise).
+
 ## (2022-06-22) Es comença a copiar la Card de Kevin Powell 
 - Es decideix utilitzar un sol EvenListener a l'Omnibox controller. Abans 
 s'escoltaven "change" i "input" però donava molts maldecaps.
