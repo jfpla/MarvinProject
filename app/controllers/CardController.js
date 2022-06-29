@@ -1,7 +1,9 @@
 import CardView from "../views/card/CardView.js";
 import { fetchMovie, fetchPerson, fetchTV } from "../services/api/TMDBApi.js";
 import {
+  deleteMovieById,
   deletePersonById,
+  deleteTVById,
   getMovieById,
   getPersonById,
   getTVById,
@@ -136,37 +138,47 @@ const LoadCardController = async (data) => {
 
     const btnW = node.querySelector(".back > .buttons > button:first-child");
     btnW.addEventListener("click", async (e) => {
-      console.log("Click:", data.media_type, e);
+      // console.log("Click:", data.media_type, e);
+      let saveItem;
+      let deleteItemById;
+      let fetchItem;
       switch (data.media_type) {
         case "movie":
-          await saveMovie(
-            data.id,
-            await fetchMovie(data.id),
-            btnSelectCallback(btnW)
-          );
+          saveItem = saveMovie;
+          deleteItemById = deleteMovieById;
+          fetchItem = fetchMovie;
           break;
         case "tv":
-          await saveTV(
-            data.id,
-            await fetchTV(data.id),
-            btnSelectCallback(btnW)
-          );
+          saveItem = saveTV;
+          deleteItemById = deleteTVById;
+          fetchItem = fetchTV;
           break;
         case "person":
         default:
-          if (storedItem) {
-            await deletePersonById(storedItem.id, () => {
-              btnW.classList.remove("btn-selected");
-              btnW.textContent = "Add to Watchlist";
-            });
-          } else {
-            await savePerson(
-              data.id,
-              await fetchPerson(data.id),
-              btnSelectCallback(btnW)
-            );
-          }
+          saveItem = savePerson;
+          deleteItemById = deletePersonById;
+          fetchItem = fetchPerson;
           break;
+      }
+      if (!(fetchItem && deleteItemById && saveItem)) {
+        return;
+      }
+      if (storedItem) {
+        await deleteItemById(storedItem.id, () => {
+          btnW.classList.remove("btn-selected");
+          btnW.textContent = "Add to Watchlist";
+        });
+      } else {
+        await saveItem(
+          data.id,
+          await fetchItem(data.id),
+          btnSelectCallback(btnW)
+        );
+      }
+      if (e.target.parentElement?.parentElement?.parentElement) {
+        e.target.parentElement.parentElement.parentElement.replaceWith(
+          ...(await LoadCardController(data))
+        );
       }
     });
   });

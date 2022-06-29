@@ -40,7 +40,18 @@ export async function getMovieById(id) {
   const indexRequest = store.index("movie_id").get(IDBKeyRange.only(id));
   const data = await promiseRequest(indexRequest);
   // console.log("DATA:", data);
-  if (data) return data.response;
+  if (data) return data;
+}
+
+export async function deleteMovieById(id, callback) {
+  const tx = DB.transaction("tmdb_movie", "readwrite");
+  // const request =
+  tx.objectStore("tmdb_movie").delete(IDBKeyRange.only(id));
+
+  tx.oncomplete = () => {
+    callback();
+    console.log("Deleted Movie", id);
+  };
 }
 
 export async function saveMovie(id, result, callback) {
@@ -71,7 +82,18 @@ export async function getTVById(id) {
   const indexRequest = store.index("tv_id").get(IDBKeyRange.only(id));
   const data = await promiseRequest(indexRequest);
   // console.log("DATA:", data);
-  if (data) return data.response;
+  if (data) return data;
+}
+
+export async function deleteTVById(id, callback) {
+  const tx = DB.transaction("tmdb_tv", "readwrite");
+  // const request =
+  tx.objectStore("tmdb_tv").delete(IDBKeyRange.only(id));
+
+  tx.oncomplete = () => {
+    callback();
+    console.log("Deleted TV", id);
+  };
 }
 
 export async function saveTV(id, result, callback) {
@@ -107,7 +129,8 @@ export async function getPersonById(id) {
 
 export async function deletePersonById(id, callback) {
   const tx = DB.transaction("tmdb_person", "readwrite");
-  const request = tx.objectStore("tmdb_person").delete(IDBKeyRange.only(id));
+  // const request =
+  tx.objectStore("tmdb_person").delete(IDBKeyRange.only(id));
 
   tx.oncomplete = () => {
     callback();
