@@ -1,9 +1,19 @@
 # Diari sobre el procés de planificació i desenvolupament
 
+## (2022-06-22) Es comença a copiar la Card de Kevin Powell 
+- Es decideix utilitzar un sol EvenListener a l'Omnibox controller. Abans 
+s'escoltaven "change" i "input" però donava molts maldecaps.
+- A mesura que progressa el [video de Kevin Powell](
+https://www.youtube.com/watch?v=YmyqlM13JUU), es va copiant i jugant amb el codi. 
+En abusar tant de posicions absolutes entre les diferents capes de la carta, 
+s'ha d'anar reajustant el CSS perquè les imatges que farem servir tenen proporcions 
+diferents de les de l'exemple. 
+- S'intenta animar el SVG del background mitjançant CSS enlloc de definir l'animació
+al mateix SVG, però no queda tan bé. Es tracta de modificar l'SVG  
+
 ## (2022-06-12) SearchResultsView elimina els resultats anteriors
 - Abans de tornar a construir la vista de resultats, s'assegura d'haver eliminat 
 els anteriors.
-
 
 ## (2022-06-11) Components SearchResults i Card 
 - Una primera aproximació als components SearchResults i Card per començar a pintar 
