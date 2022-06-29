@@ -1,5 +1,10 @@
 # Diari sobre el procés de planificació i desenvolupament
 
+## (2022-06-12) SearchResultsView elimina els resultats anteriors
+- Abans de tornar a construir la vista de resultats, s'assegura d'haver eliminat 
+els anteriors.
+
+
 ## (2022-06-11) Components SearchResults i Card 
 - Una primera aproximació als components SearchResults i Card per començar a pintar 
 resultats.
