@@ -20,7 +20,7 @@ const personImageSettings = ({ imgBaseUrl, imgProfileRes, profile_path }) => {
   let backgroundImage = "views/card/img/movie-thumbnail.svg";
 
   if (profile_path) {
-    const imgProfile = `${imgBaseUrl}/${imgProfileRes}/${profile_path}`;
+    const imgProfile = `${imgBaseUrl}/${imgProfileRes}${profile_path}`;
     frontThumbnail = imgProfile;
     backgroundImage = imgProfile;
   }
@@ -40,10 +40,10 @@ const imageSettings = ({
   let backgroundImage = `views/card/img/${media_type}-background.svg`;
 
   if (backdrop_path || poster_path) {
-    frontThumbnail = `${imgBaseUrl}/${imgPosterRes}/${
+    frontThumbnail = `${imgBaseUrl}/${imgPosterRes}${
       poster_path || backdrop_path
     }`;
-    backgroundImage = `${imgBaseUrl}/${imgBackRes}/${
+    backgroundImage = `${imgBaseUrl}/${imgBackRes}${
       backdrop_path || poster_path
     }`;
   }
@@ -51,6 +51,12 @@ const imageSettings = ({
   return { frontThumbnail, backgroundImage };
 };
 
+/**
+ *
+ * @param {(TVShowType|MovieShowType|PersonType)} obj
+ * @return {{data: {backStreamingInfoRightName: string, backStreamingInfoLeftData: string, backStreamingInfoLeftName: string, backStreamingInfoRightData, backgroundImage: string, rank: string, frontThumbnail: string, id, frontName, frontStatsViewers: string}, methods: {deleteItemDetailById, saveItemDetail, getItemDetailById, fetchItemDetailById}}}
+ * @constructor
+ */
 const CardSchema = (obj) => {
   const imgBaseUrl = "https://image.tmdb.org/t/p";
   const imgBackRes = "w300";
@@ -141,3 +147,5 @@ const CardSchema = (obj) => {
     },
   };
 };
+
+export default CardSchema;

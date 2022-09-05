@@ -1,5 +1,5 @@
 import SearchResultView from "../views/search-result/SearchResultView.js";
-import CardController from "./CardController.js";
+import HydrateCardTemplate from "./CardController.js";
 
 /**
  * TODO: Make sure SearchResultView is executed only once.
@@ -14,7 +14,7 @@ const LoadSearchResultController = async (data) => {
   // console.log(searchResultNode);
   const fragment = document.createDocumentFragment();
   for (const item of data.results) {
-    const card = await CardController(item);
+    const card = await HydrateCardTemplate(item);
     fragment.append(...card);
   }
   searchResultNode.querySelector("#search-result").appendChild(fragment);
