@@ -16,7 +16,10 @@ const LoadSearchResultController = async (data) => {
   for await (const card of HydrateCardTemplateGenerator(data.results)) {
     fragment.append(...card);
   }
-
+  // for (const item of data.results) {
+  //   const card = await HydrateCardTemplate(item);
+  //   fragment.append(...card);
+  // }
   searchResultNode.querySelector("#search-result").appendChild(fragment);
 };
 

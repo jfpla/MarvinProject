@@ -10,14 +10,14 @@ import CardSchema from "../schemas/card/CardSchema.js";
 export const HydrateCardTemplateGenerator = async function* (dataList) {
   const cardTemplate = await CardView();
   for (const data of dataList) {
-    yield await HydrateCardTemplate(data, cardTemplate);
+    yield await HydrateCardTemplate(data, cardTemplate.cloneNode(true));
   }
 };
 
 /**
  *
  * @param {(TVShowType|MovieShowType|PersonType)} data
- * @param {Element} template
+ * @param {Element|Node} template
  * @return {Promise<Node[]>}
  */
 const HydrateCardTemplate = async (data, template = null) => {
