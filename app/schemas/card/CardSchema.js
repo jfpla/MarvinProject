@@ -15,6 +15,13 @@ import {
   fetchTV,
 } from "../../services/api/TMDBApi.js";
 
+/**
+ *
+ * @param imgBaseUrl
+ * @param imgProfileRes
+ * @param profile_path
+ * @return {{backgroundImage: string, frontThumbnail: string}}
+ */
 const personImageSettings = ({ imgBaseUrl, imgProfileRes, profile_path }) => {
   let frontThumbnail = "views/card/img/person-thumbnail.svg";
   let backgroundImage = "views/card/img/movie-thumbnail.svg";
@@ -28,6 +35,16 @@ const personImageSettings = ({ imgBaseUrl, imgProfileRes, profile_path }) => {
   return { frontThumbnail, backgroundImage };
 };
 
+/**
+ *
+ * @param imgBaseUrl
+ * @param imgBackRes
+ * @param imgPosterRes
+ * @param media_type
+ * @param backdrop_path
+ * @param poster_path
+ * @return {{backgroundImage: string, frontThumbnail: string}}
+ */
 const imageSettings = ({
   imgBaseUrl,
   imgBackRes,
@@ -63,89 +80,120 @@ const CardSchema = (obj) => {
   const imgPosterRes = "w342";
   const imgProfileRes = "w185";
 
-  let images;
-  let frontName;
-  let rank;
-  let frontStatsViewers;
-  let backStreamingInfoLeftData;
-  let backStreamingInfoLeftName;
-  let backStreamingInfoRightData;
-  let backStreamingInfoRightName;
+  /**
+   *
+   * @param frontThumbnail
+   * @param backgroundImage
+   * @param frontName
+   * @param rank
+   * @param backStreamingInfoLeftName
+   * @param backStreamingInfoLeftData
+   * @param backStreamingInfoRightName
+   * @param backStreamingInfoRightData
+   * @param frontStatsViewers
+   * @return {{data: {backStreamingInfoRightName, backStreamingInfoLeftData, backStreamingInfoLeftName, backStreamingInfoRightData, backgroundImage, rank, frontThumbnail, id: (number|*), frontName, frontStatsViewers}}}
+   */
+  const hydrateDataObject = (
+    { frontThumbnail, backgroundImage },
+    frontName,
+    rank,
+    backStreamingInfoLeftName,
+    backStreamingInfoLeftData,
+    backStreamingInfoRightName,
+    backStreamingInfoRightData,
+    frontStatsViewers
+  ) => {
+    return {
+      data: {
+        id: obj.id,
+        rank,
+        frontName,
+        frontThumbnail,
+        frontStatsViewers,
+        backgroundImage,
+        backStreamingInfoLeftData,
+        backStreamingInfoLeftName,
+        backStreamingInfoRightData,
+        backStreamingInfoRightName,
+      },
+    };
+  };
 
-  let saveItemDetail;
-  let getItemDetailById;
-  let deleteItemDetailById;
-  let fetchItemDetailById;
-  switch (obj.media_type) {
-    case "person":
-      images = personImageSettings({ imgBaseUrl, imgProfileRes, ...obj });
-      frontName = obj.name;
-      rank = "fa-user";
-      frontStatsViewers = obj.popularity.toFixed().toString();
-      backStreamingInfoLeftData = frontStatsViewers;
-      backStreamingInfoLeftName = "Vote Avg";
-      backStreamingInfoRightData = obj.known_for_department;
-      backStreamingInfoRightName = "Known for";
-
-      saveItemDetail = savePerson;
-      getItemDetailById = getPersonById;
-      deleteItemDetailById = deletePersonById;
-      fetchItemDetailById = fetchPerson;
-      break;
-    case "tv":
-      images = imageSettings({ imgBaseUrl, imgBackRes, imgPosterRes, ...obj });
-      frontName = obj.name;
-      rank = "fa-tv";
-      frontStatsViewers = obj.popularity.toFixed().toString();
-      backStreamingInfoLeftData = obj.vote_average.toFixed().toString();
-      backStreamingInfoLeftName = "Vote Avg";
-      backStreamingInfoRightData = obj.vote_count.toFixed().toString();
-      backStreamingInfoRightName = "Vote cnt";
-
-      saveItemDetail = saveTV;
-      getItemDetailById = getTVById;
-      deleteItemDetailById = deleteTVById;
-      fetchItemDetailById = fetchTV;
-      break;
-    case "movie":
-      images = imageSettings({ imgBaseUrl, imgBackRes, imgPosterRes, ...obj });
-      frontName = obj.title;
-      rank = "fa-video";
-      frontStatsViewers = obj.popularity.toFixed().toString();
-      backStreamingInfoLeftData = obj.vote_average.toFixed().toString();
-      backStreamingInfoLeftName = "Vote Avg";
-      backStreamingInfoRightData = obj.vote_count.toFixed().toString();
-      backStreamingInfoRightName = "Vote cnt";
-
-      saveItemDetail = saveMovie;
-      getItemDetailById = getMovieById;
-      deleteItemDetailById = deleteMovieById;
-      fetchItemDetailById = fetchMovie;
-      break;
-    default:
-      console.log("Unknown data type");
-      break;
-  }
-  return {
-    data: {
-      id: obj.id,
-      rank: rank,
-      frontName: frontName,
-      frontThumbnail: images.frontThumbnail,
-      frontStatsViewers: frontStatsViewers,
-      backgroundImage: images.backgroundImage,
-      backStreamingInfoLeftData: backStreamingInfoLeftData,
-      backStreamingInfoLeftName: backStreamingInfoLeftName,
-      backStreamingInfoRightData: backStreamingInfoRightData,
-      backStreamingInfoRightName: backStreamingInfoRightName,
-    },
+  /**
+   *
+   * @param saveItemDetail
+   * @param getItemDetailById
+   * @param deleteItemDetailById
+   * @param fetchItemDetailById
+   * @return {{methods: {deleteItemDetailById, saveItemDetail, getItemDetailById, fetchItemDetailById}}}
+   */
+  const hydrateMethods = (
+    saveItemDetail,
+    getItemDetailById,
+    deleteItemDetailById,
+    fetchItemDetailById
+  ) => ({
     methods: {
       saveItemDetail,
       getItemDetailById,
       deleteItemDetailById,
       fetchItemDetailById,
     },
-  };
+  });
+
+  switch (obj.media_type) {
+    case "person":
+      return {
+        ...hydrateDataObject(
+          personImageSettings({ imgBaseUrl, imgProfileRes, ...obj }),
+          obj.name,
+          "fa-user",
+          "Vote Avg",
+          obj.popularity.toFixed().toString(),
+          "Known for",
+          obj.known_for_department,
+          obj.popularity.toFixed().toString()
+        ),
+        ...hydrateMethods(
+          savePerson,
+          getPersonById,
+          deletePersonById,
+          fetchPerson
+        ),
+      };
+    case "tv":
+      return {
+        ...hydrateDataObject(
+          imageSettings({ imgBaseUrl, imgBackRes, imgPosterRes, ...obj }),
+          obj.name,
+          "fa-tv",
+          "Vote Avg",
+          obj.vote_average.toFixed().toString(),
+          "Vote cnt",
+          obj.vote_count.toFixed().toString(),
+          obj.popularity.toFixed().toString()
+        ),
+        ...hydrateMethods(saveTV, getTVById, deleteTVById, fetchTV),
+      };
+
+    case "movie":
+      return {
+        ...hydrateDataObject(
+          imageSettings({ imgBaseUrl, imgBackRes, imgPosterRes, ...obj }),
+          obj.title,
+          "fa-video",
+          "Vote Avg",
+          obj.vote_average.toFixed().toString(),
+          "Vote cnt",
+          obj.vote_count.toFixed().toString(),
+          obj.popularity.toFixed().toString()
+        ),
+        ...hydrateMethods(saveMovie, getMovieById, deleteMovieById, fetchMovie),
+      };
+    default:
+      console.log("Unknown data type");
+      break;
+  }
 };
 
 export default CardSchema;
