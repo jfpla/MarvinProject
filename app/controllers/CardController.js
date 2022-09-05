@@ -3,14 +3,28 @@ import CardSchema from "../schemas/card/CardSchema.js";
 
 /**
  *
+ * @param {(TVShowType|MovieShowType|PersonType)[]} dataList
+ * @return {AsyncGenerator<Node[], void, *>}
+ * @constructor
+ */
+export const HydrateCardTemplateGenerator = async function* (dataList) {
+  const cardTemplate = await CardView();
+  for (const data of dataList) {
+    yield await HydrateCardTemplate(data, cardTemplate);
+  }
+};
+
+/**
+ *
  * @param {(TVShowType|MovieShowType|PersonType)} data
+ * @param {Element} template
  * @return {Promise<Node[]>}
  */
-const HydrateCardTemplate = async (data) => {
+const HydrateCardTemplate = async (data, template = null) => {
   const cs = CardSchema(data);
   // console.log("data", data);
   // console.log("CardSchema", cs);
-  const cardTemplate = await CardView();
+  const cardTemplate = template || (await CardView());
 
   const thumbnail = cardTemplate.querySelector(".front .thumbnail");
   const title = cardTemplate.querySelector(".front .name");
