@@ -8,6 +8,7 @@
     "doc": "doc"
   },
   "scripts": {
+    "start": "open http://localhost:8125/app/index.html && node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
