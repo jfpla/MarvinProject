@@ -15,7 +15,6 @@ import { fileURLToPath } from "url";
 // FIX __dirname: https://bobbyhadz.com/blog/javascript-dirname-is-not-defined-in-es-module-scope
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-console.log("__dirname", __dirname);
 
 const HTTP_PORT = 8089;
 const WEBSOCKET_PORT = 8090;
@@ -98,7 +97,6 @@ const requestHandler = function (req, res) {
     // No need to ensure the route can't access other local files,
     // since this is for development only.
     const route = path.normalize(path.join(__dirname, req.url));
-    console.log("route: ", route);
     if (serveStaticPageIfExists(route, res)) {
       return;
     }
