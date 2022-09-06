@@ -98,17 +98,18 @@ const HydrateCardTemplate = async (data, template = null) => {
     // https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType
     if (node.nodeType !== 1) return node;
 
-    const btnW = btnWatchlist(node); // node.querySelector(".back > .buttons > button:first-child");
+    const btnW = btnWatchlist(node);
     btnW.addEventListener("click", async (e) => {
       if (watchlistItem) {
-        await cs.methods.deleteItemDetailById(watchlistItem.id, () => {
-          watchlistBtnToggleCallback(btnW, false);
-        });
+        await cs.methods.deleteItemDetailById(
+          watchlistItem.id,
+          watchlistBtnToggleCallback(btnW, false) // not needed. 'cause the card is rehydrated
+        );
       } else {
         await cs.methods.saveItemDetail(
           data.id,
           await cs.methods.fetchItemDetailById(data.id),
-          watchlistBtnToggleCallback(btnW, true)
+          watchlistBtnToggleCallback(btnW, true) // not needed. 'cause the card is rehydrated
         );
       }
       if (e.target.parentElement?.parentElement?.parentElement) {

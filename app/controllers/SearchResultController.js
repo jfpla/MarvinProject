@@ -2,9 +2,7 @@ import SearchResultView from "../views/search-result/SearchResultView.js";
 import { HydrateCardTemplateGenerator } from "./CardController.js";
 
 /**
- * TODO: Make sure SearchResultView is executed only once.
- *  Currently the OmniboxController may call this method
- *  twice triggered by two Events (onChange and onInput).
+ *
  * @param {MultiSearchType} data
  * @return {Promise<void>}
  */
