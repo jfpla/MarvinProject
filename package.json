@@ -8,7 +8,7 @@
     "doc": "doc"
   },
   "scripts": {
-    "start": "open http://localhost:8125/app/index.html && nodemon server.js",
+    "start": "open http://localhost:8089/app/index.html && nodemon dev-server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/jfpla/MarvinProject#readme",
   "devDependencies": {
     "nodemon": "^2.0.19",
-    "prettier": "^2.6.2"
+    "prettier": "^2.6.2",
+    "ws": "^8.8.1"
   }
 }
