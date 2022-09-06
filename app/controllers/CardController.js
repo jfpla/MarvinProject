@@ -3,6 +3,24 @@ import CardSchema from "../schemas/card/CardSchema.js";
 
 /**
  *
+ * @param {string} url
+ * @param {number} n
+ * @return {(function(): Promise<void>)|*}
+ */
+const retryFetchImage = (url, n = 0) => {
+  return async () => {
+    console.log(`Retry image fetch: ${url}`);
+    const response = await fetch(url);
+    if (response.status === 429 && n < 3) {
+      n += 1;
+      console.log(`HTTP429 ${url}; attempt ${n} `);
+      setTimeout(await retryFetchImage(url, n), 150);
+    }
+  };
+};
+
+/**
+ *
  * @param {(TVShowType|MovieShowType|PersonType)[]} dataList
  * @return {AsyncGenerator<Node[], void, *>}
  * @constructor
@@ -98,6 +116,19 @@ const HydrateCardTemplate = async (data, template = null) => {
           ...(await HydrateCardTemplate(data))
         );
       }
+    });
+
+    const images = node.querySelectorAll("img");
+    images.forEach((img) => {
+      img.addEventListener("error", async (e) => {
+        console.log("imgError", e.target);
+        await retryFetchImage(e.target.src)();
+        if (e.target.parentElement?.parentElement) {
+          e.target.parentElement.parentElement.replaceWith(
+            ...(await HydrateCardTemplate(data))
+          );
+        }
+      });
     });
 
     return node;
