@@ -44,10 +44,10 @@ const LoadOmniboxController = async () => {
     e.preventDefault();
   });
   /*having "change" refreshes the view on changing focus*/
-  // input.addEventListener(
-  //   "change",
-  //   throttle(searchResultsBuilder(querySearchProxy), 150)
-  // );
+  input.addEventListener(
+    "change",
+    throttle(searchResultsBuilder(querySearchProxy), 150)
+  );
   input.addEventListener(
     "input",
     throttle(searchResultsBuilder(querySearchProxy), 150)
