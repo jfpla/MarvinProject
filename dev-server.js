@@ -100,6 +100,8 @@ const requestHandler = function (req, res) {
     const route = path.normalize(
       req.url === "/environment.js" || req.url === "/auth_config.json"
         ? path.join(__dirname, req.url)
+        : req.url.includes("code=") && req.url.includes("state=") // check auth0 url
+        ? path.join(__dirname, "app")
         : path.join(__dirname, "app", req.url)
     );
     if (serveStaticPageIfExists(route, res)) {
