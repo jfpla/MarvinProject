@@ -96,7 +96,12 @@ const requestHandler = function (req, res) {
   if (method === "get") {
     // No need to ensure the route can't access other local files,
     // since this is for development only.
-    const route = path.normalize(path.join(__dirname, req.url));
+    // BUT, we still need to check where auth files reside!
+    const route = path.normalize(
+      req.url === "/environment.js" || req.url === "/auth_config.json"
+        ? path.join(__dirname, req.url)
+        : path.join(__dirname, "app", req.url)
+    );
     if (serveStaticPageIfExists(route, res)) {
       return;
     }

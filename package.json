@@ -8,7 +8,7 @@
     "doc": "doc"
   },
   "scripts": {
-    "start": "open http://localhost:8089/app/index.html && nodemon dev-server.js",
+    "start": "open http://localhost:8089/ && nodemon dev-server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
