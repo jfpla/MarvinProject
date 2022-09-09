@@ -28,9 +28,7 @@ const configAuthClient = async () => {
   });
 };
 
-const _auth0 = async () => {
-  const auth0 = await configAuthClient();
-
+const authFlow = async (auth0) => {
   /** UI **/
   await UpdateUI(auth0);
 
@@ -43,18 +41,16 @@ const _auth0 = async () => {
     window.history.replaceState({}, document.title, "/");
   }
   /** **/
-
-  return auth0;
 };
 
-const Auth0 = async () => {
-  return new Promise((resolve, reject) => {
+export default async () => {
+  return new Promise(async (resolve, reject) => {
     // https://stackoverflow.com/a/27935772
     if (document.readyState === "complete") {
-      return resolve(_auth0());
+      const auth0 = await configAuthClient();
+      await authFlow(auth0);
+      return resolve(auth0);
     }
     document.addEventListener("DOMContentLoaded", resolve);
   });
 };
-
-export default Auth0;
