@@ -14,12 +14,23 @@
 
 body {
   margin: 0;
+  /*border: 2px solid forestgreen;*/
+
+  display: flex;
+  justify-content: center;
+  height: 100vh;
 }
 
 .bg-image {
+  /*border: 2px solid red;*/
+
+  width: 100%;
+  margin: auto;
+
   background-image: url("img/TheMatrixPills.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+
   display: flex;
 }
 
