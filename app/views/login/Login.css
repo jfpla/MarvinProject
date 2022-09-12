@@ -20,28 +20,25 @@ body {
   background-image: url("img/TheMatrixPills.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  border: 1px solid black;
   display: flex;
 }
 
-.left {
-  /*border: 2px solid red;*/
+.box {
   min-width: 50%;
   padding: 25% 0;
-  backdrop-filter: brightness(100%);
 }
 
-.left:hover {
+.enabled {
+  backdrop-filter: brightness(100%);
+}
+.enabled:hover {
   backdrop-filter: brightness(125%);
 }
 
-.right {
-  /*border: 2px solid blue;*/
-  min-width: 50%;
-  padding: 25% 0;
+.disabled {
+  backdrop-filter: grayscale(1) blur(4px);
 }
 
-.disabled {
-  cursor: default;
-  backdrop-filter: grayscale(1) blur(4px);
+.hidden {
+  display: none;
 }
