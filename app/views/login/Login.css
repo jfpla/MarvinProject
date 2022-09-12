@@ -1,0 +1,47 @@
+:root {
+  --ff-primary: basic-sans, sans-serif;
+  --clr-primary: #ee6352;
+  --clr-body: #333;
+  --clr-bg: #ddd;
+  --spacer: 1rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.bg-image {
+  background-image: url("img/TheMatrixPills.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 1px solid black;
+  display: flex;
+}
+
+.left {
+  /*border: 2px solid red;*/
+  min-width: 50%;
+  padding: 25% 0;
+  backdrop-filter: brightness(100%);
+}
+
+.left:hover {
+  backdrop-filter: brightness(125%);
+}
+
+.right {
+  /*border: 2px solid blue;*/
+  min-width: 50%;
+  padding: 25% 0;
+}
+
+.disabled {
+  cursor: default;
+  backdrop-filter: grayscale(1) blur(4px);
+}
