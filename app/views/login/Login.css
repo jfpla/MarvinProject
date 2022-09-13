@@ -4,6 +4,7 @@
   --clr-body: #333;
   --clr-bg: #ddd;
   --spacer: 1rem;
+  background-color: #333333;
 }
 
 *,
@@ -24,7 +25,7 @@ body {
 .bg-image {
   /*border: 2px solid red;*/
 
-  width: 100%;
+  width: 75%;
   margin: auto;
 
   background-image: url("img/TheMatrixPills.jpg");
@@ -52,4 +53,31 @@ body {
 
 .hidden {
   display: none;
+}
+
+.enabled,
+.disabled {
+  z-index: 100;
+  position: relative;
+}
+
+.bg-image > :not(.hidden):first-of-type::after {
+  z-index: 1;
+  position: absolute;
+  content: "";
+  inset: 0;
+
+  /*Final size should be*/
+  /*height: 678px;*/
+  /*width: 400px;*/
+
+  height: 20%;
+  width: 10%;
+  border-radius: 5px;
+
+  background-color: rgba(255, 255, 255, 0.58);
+  filter: blur(0.3rem);
+
+  margin-top: 40%;
+  margin-left: 95%;
 }
