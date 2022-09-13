@@ -85,29 +85,25 @@ body {
   content: "";
   inset: 0;
 
-  /*Final size should be*/
+  /*Final size should be something around:*/
   /*height: 678px;*/
   /*width: 400px;*/
 
-  height: 1%;
-  width: 1%;
-  border-radius: 5px;
+  height: 3px;
+  width: 2px;
+  border-radius: 0.01rem;
 
-  background-color: rgba(255, 255, 255, 0.58);
-  filter: blur(4px);
+  background-color: rgba(255, 255, 255, 0);
+  filter: blur(0.01rem);
 
   margin-top: 50%;
   margin-left: 100%;
 
   transition-duration: 250ms;
-  transition-property: height, width, margin-top, margin-left;
+  transition-property: background-color, transform;
 }
 
 .bg-image > :not(.hidden):first-of-type:hover::after {
-  /*height: 50%;*/
-  /*width: 25%;*/
-  height: 678px;
-  width: 400px;
-  margin-top: 20%;
-  margin-left: 85%;
+  background-color: rgba(255, 255, 255);
+  transform: scale(200);
 }
