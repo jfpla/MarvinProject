@@ -4,6 +4,10 @@
   --clr-body: #333;
   --clr-bg: #ddd;
   --spacer: 1rem;
+
+  --shadowBGColor: rgba(255, 255, 255, 0);
+  --shadowScale: 0;
+
   background-color: #333333;
 }
 
@@ -63,18 +67,18 @@ body {
 }
 
 .enabled:active {
-  outline: solid red;
+  /*outline: solid red;*/
   backdrop-filter: brightness(200%);
   transition-duration: 0ms;
   transition-property: backdrop-filter;
 }
 
-.enabled:active ~ .disabled {
-  outline: solid green;
-}
-.bg-image > :not(.hidden):active {
-  border: solid greenyellow 1px;
-}
+/*.enabled:active ~ .disabled {*/
+/*  outline: solid green;*/
+/*}*/
+/*.bg-image > :not(.hidden):active {*/
+/*  border: solid greenyellow 1px;*/
+/*}*/
 
 .bg-image > :not(.hidden):first-of-type::after {
   position: absolute;
@@ -89,7 +93,8 @@ body {
   width: 2px;
   border-radius: 0.01rem;
 
-  background-color: rgba(255, 255, 255, 0);
+  background-color: var(--shadowBGColor);
+  transform: scale(var(--shadowScale));
   filter: blur(0.01rem);
 
   margin-top: 50%;
@@ -99,11 +104,8 @@ body {
   transition-property: background-color, transform;
 }
 
-.bg-image > :not(.hidden):first-of-type:hover::after {
-  background-color: rgba(255, 255, 255);
-  transform: scale(200);
-}
-
 .fade {
   background-color: black;
+  transition-duration: 250ms;
+  transition-property: background-color;
 }
