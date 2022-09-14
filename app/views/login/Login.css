@@ -40,11 +40,18 @@ body {
   padding: 25% 0;
 }
 
+.hidden {
+  display: none;
+}
+
 .enabled {
-  backdrop-filter: brightness(100%);
+  z-index: 1;
+  position: relative;
+
   transition-duration: 250ms;
   transition-property: backdrop-filter;
 }
+
 .enabled:hover {
   backdrop-filter: brightness(125%);
 }
@@ -53,16 +60,6 @@ body {
   backdrop-filter: grayscale(1) blur(4px);
   transition-duration: 500ms;
   transition-property: backdrop-filter;
-}
-
-.hidden {
-  display: none;
-}
-
-.enabled,
-.disabled {
-  z-index: 100;
-  position: relative;
 }
 
 .enabled:active {
@@ -76,11 +73,10 @@ body {
   outline: solid green;
 }
 .bg-image > :not(.hidden):active {
-  outline: solid greenyellow;
+  border: solid greenyellow 1px;
 }
 
 .bg-image > :not(.hidden):first-of-type::after {
-  z-index: 1;
   position: absolute;
   content: "";
   inset: 0;
@@ -106,4 +102,8 @@ body {
 .bg-image > :not(.hidden):first-of-type:hover::after {
   background-color: rgba(255, 255, 255);
   transform: scale(200);
+}
+
+.fade {
+  background-color: black;
 }
