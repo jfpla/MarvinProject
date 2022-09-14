@@ -1,53 +1,63 @@
-/** login **/
+/** Transitions **/
+import { loadCSS, loadHTML } from "../View.js";
+import { login } from "../../auth/Auth.js";
 
-const loginElement = document.querySelector(".login");
-console.log(loginElement);
+const TransitionLoginSetUp = (template, auth) => {
+  const loginElement = template.querySelector(".login");
+  console.log(loginElement);
 
-const showLoginBoxGhost = (event) => {
-  const loginElement = event.target;
-  loginElement.style.setProperty("--shadowBGColor", "rgba(255, 255, 255)");
-  loginElement.style.setProperty("--shadowScale", "200");
-};
+  const showLoginBoxGhost = (event) => {
+    const loginElement = event.target;
+    loginElement.style.setProperty("--shadowBGColor", "rgba(255, 255, 255)");
+    loginElement.style.setProperty("--shadowScale", "200");
+  };
 
-const loginTransition = (event) => {
-  const loginElement = event.target;
+  const loginTransition = (event) => {
+    const loginElement = event.target;
 
-  loginElement.classList.add("fade");
-  document.querySelector(".disabled").classList.add("fade");
-  loginElement.addEventListener("transitionend", showLoginBoxGhost, {
-    once: true,
+    loginElement.classList.add("fade");
+    template.querySelector(".disabled").classList.add("fade");
+    loginElement.addEventListener("transitionend", showLoginBoxGhost, {
+      once: true,
+    });
+  };
+
+  loginElement.addEventListener("click", (e) => {
+    loginTransition(e);
+    login(auth);
   });
+
+  return template;
 };
 
-loginElement.addEventListener("click", loginTransition);
+const TransitionLogoutSetUp = (template) => {
+  const logoutElement = template.querySelector(".logout");
+  console.log(logoutElement);
+  const logoutTransition = () => {
+    console.log("logoutTransition");
+    // TransitionToggleLogin();
+  };
 
-/** logout **/
+  logoutElement.addEventListener("click", logoutTransition);
 
-const logoutElement = document.querySelector(".logout");
-console.log(logoutElement);
-const logoutTransition = () => {
-  toggleLogin();
+  return template;
 };
 
-logoutElement.addEventListener("click", logoutTransition);
+const TransitionToggleLogin = (template, activateLogin = true) => {
+  const loginLayer = template.querySelector(".bg-image > div:first-of-type");
+  const loginLink = template.querySelector(".bg-image > a:first-of-type");
 
-/** toggle login **/
+  const logoutLayer = template.querySelector(".bg-image > div:last-of-type");
+  const logoutLink = template.querySelector(".bg-image > a:last-of-type");
 
-const toggleLogin = () => {
-  const loginLayer = document.querySelector(".bg-image > div:first-of-type");
-  const loginLink = document.querySelector(".bg-image > a:first-of-type");
-
-  const logoutLayer = document.querySelector(".bg-image > div:last-of-type");
-  const logoutLink = document.querySelector(".bg-image > a:last-of-type");
-
-  const isLoginLinkHidden = loginLink.classList.contains("hidden");
+  // const isLoginLinkHidden = loginLink.classList.contains("hidden");
 
   loginLayer.className = "";
   loginLink.className = "";
   logoutLayer.className = "";
   logoutLink.className = "";
 
-  if (isLoginLinkHidden) {
+  if (activateLogin) {
     loginLayer.classList.add("box", "hidden");
     loginLink.classList.add("login", "box", "enabled");
 
@@ -60,4 +70,26 @@ const toggleLogin = () => {
     loginLayer.classList.add("box", "disabled");
     loginLink.classList.add("login", "box", "hidden");
   }
+  return template;
 };
+
+/* LoginView */
+/**
+ *
+ * @param auth
+ * @return {Promise<Element>}
+ * @constructor
+ */
+const LoadLoginView = async (auth) => {
+  const loginTemplate = await loadHTML(
+    "./Login.html",
+    import.meta.url,
+    "#login__template"
+  );
+  await loadCSS("./Login.css", import.meta.url);
+  const template = TransitionLoginSetUp(loginTemplate, auth);
+
+  return template;
+};
+
+export default LoadLoginView;
