@@ -16,7 +16,10 @@ const TransitionLoginSetUp = (template, auth) => {
     const loginElement = event.target;
 
     loginElement.classList.add("fade");
-    template.querySelector(".disabled").classList.add("fade");
+    const disabledElement =
+      loginElement.parentElement.querySelector(".disabled");
+    console.log("disabledElement>", disabledElement);
+    disabledElement.classList.add("fade");
     loginElement.addEventListener("transitionend", showLoginBoxGhost, {
       once: true,
     });
@@ -24,7 +27,7 @@ const TransitionLoginSetUp = (template, auth) => {
 
   loginElement.addEventListener("click", (e) => {
     loginTransition(e);
-    login(auth);
+    login(auth)();
   });
 
   return template;

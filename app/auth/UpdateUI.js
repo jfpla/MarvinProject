@@ -8,12 +8,19 @@ export default async (auth) => {
   console.log("updateUI", isAuthenticated);
   // document.getElementById("btn-logout").disabled = !isAuthenticated;
   // document.getElementById("btn-login").disabled = isAuthenticated;
+
+  /*Reset home*/
+  const appNode = document.querySelector("#app");
+  const headerNode = appNode.querySelector("header");
+  const mainNode = appNode.querySelector("main");
+  headerNode && appNode.removeChild(headerNode);
+  mainNode && appNode.removeChild(mainNode);
+
   await MainView();
   if (!isAuthenticated) {
     const loginTemplate = await Login(auth);
     document.querySelector("main").append(...loginTemplate.childNodes);
   } else {
-    // await MainView();
     await OmniboxController();
     await AvatarController();
   }
