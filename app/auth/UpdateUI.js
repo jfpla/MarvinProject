@@ -11,16 +11,23 @@ export default async (auth) => {
 
   /*Reset home*/
   const appNode = document.querySelector("#app");
-  const headerNode = appNode.querySelector("header");
-  const mainNode = appNode.querySelector("main");
-  headerNode && appNode.removeChild(headerNode);
-  mainNode && appNode.removeChild(mainNode);
+  const appHeaderNode = appNode.querySelector("header");
+  const appMainNode = appNode.querySelector("main");
+  appHeaderNode && appNode.removeChild(appHeaderNode);
+  appMainNode && appNode.removeChild(appMainNode);
 
-  await MainView();
+  const bodyNode = document.querySelector("body");
+  const mainNode = document.querySelector("main");
+  const loginNode = document.querySelector(".login__container");
+  mainNode && bodyNode.removeChild(mainNode);
+  loginNode && appNode.removeChild(loginNode);
+
   if (!isAuthenticated) {
     const loginTemplate = await Login(auth);
-    document.querySelector("main").append(...loginTemplate.childNodes);
+    // document.querySelector("main").append(...loginTemplate.childNodes);
+    document.querySelector("#app").append(...loginTemplate.childNodes);
   } else {
+    await MainView();
     await OmniboxController();
     await AvatarController();
   }
