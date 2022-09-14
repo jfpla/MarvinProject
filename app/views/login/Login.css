@@ -80,7 +80,7 @@ body {
 /*  border: solid greenyellow 1px;*/
 /*}*/
 
-.bg-image > :not(.hidden):first-of-type::after {
+.login::after {
   position: absolute;
   content: "";
   inset: 0;

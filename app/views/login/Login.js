@@ -1,24 +1,20 @@
-//".bg-image > :not(.hidden):first-of-type"
-const element = document.querySelector(
-  ".bg-image > :not(.hidden):first-of-type"
-);
-console.log(element);
+const loginElement = document.querySelector(".login");
+console.log(loginElement);
 
-const elementAfter = window.getComputedStyle(element, "::after");
-console.log(elementAfter);
+const showLoginBoxGhost = (event) => {
+  const loginElement = event.target;
+  loginElement.style.setProperty("--shadowBGColor", "rgba(255, 255, 255)");
+  loginElement.style.setProperty("--shadowScale", "200");
+};
 
-element.addEventListener("click", (e) => {
-  console.log(e.target);
+const loginTransition = (event) => {
+  const loginElement = event.target;
 
-  element.classList.add("fade");
+  loginElement.classList.add("fade");
   document.querySelector(".disabled").classList.add("fade");
-  element.addEventListener(
-    "transitionend",
-    (e) => {
-      console.log("transitionend", e);
-      element.style.setProperty("--shadowBGColor", "rgba(255, 255, 255)");
-      element.style.setProperty("--shadowScale", "200");
-    },
-    { once: true }
-  );
-});
+  loginElement.addEventListener("transitionend", showLoginBoxGhost, {
+    once: true,
+  });
+};
+
+loginElement.addEventListener("click", loginTransition);
