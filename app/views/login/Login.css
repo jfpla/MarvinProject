@@ -1,0 +1,105 @@
+:root {
+  --shadowBGColor: rgba(255, 255, 255, 0);
+  --shadowScale: 0;
+
+  background-color: #333333;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.login__container {
+  margin: 0;
+  /*border: 2px solid forestgreen;*/
+
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+.bg-image {
+  /*border: 2px solid red;*/
+
+  width: 75%;
+  margin: auto;
+
+  background-image: url("./img/TheMatrixPills.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  display: flex;
+}
+
+.box {
+  min-width: 50%;
+  padding: 25% 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.enabled {
+  z-index: 1;
+  position: relative;
+
+  transition-duration: 250ms;
+  transition-property: backdrop-filter;
+}
+
+.enabled:hover {
+  backdrop-filter: brightness(125%);
+}
+
+.disabled {
+  backdrop-filter: grayscale(1) blur(4px);
+  transition-duration: 500ms;
+  transition-property: backdrop-filter;
+}
+
+.enabled:active {
+  /*outline: solid red;*/
+  backdrop-filter: brightness(200%);
+  transition-duration: 0ms;
+  transition-property: backdrop-filter;
+}
+
+/*.enabled:active ~ .disabled {*/
+/*  outline: solid green;*/
+/*}*/
+/*.bg-image > :not(.hidden):active {*/
+/*  border: solid greenyellow 1px;*/
+/*}*/
+
+.login::after {
+  position: absolute;
+  content: "";
+  inset: 0;
+
+  /*Final size should be something around:*/
+  /*height: 678px;*/
+  /*width: 400px;*/
+
+  height: 3px;
+  width: 2px;
+  border-radius: 0.01rem;
+
+  background-color: var(--shadowBGColor);
+  transform: scale(var(--shadowScale));
+  filter: blur(0.01rem);
+
+  margin-top: 50%;
+  margin-left: 100%;
+
+  transition-duration: 250ms;
+  transition-property: background-color, transform;
+}
+
+.fade {
+  background-color: black;
+  transition-duration: 250ms;
+  transition-property: background-color;
+}
