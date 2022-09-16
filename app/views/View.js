@@ -83,7 +83,7 @@ const ViewInDOM = (element) => ({
   isInDOM: true,
 
   chain: (fn) => fn(element),
-  map: async (fn) => await ViewOf(fn(element)),
+  map: async (fn) => await ViewOf({ element: fn(element) }),
 
   getClone: async () => await ViewOf({ element: element.cloneNode(true) }),
 });
@@ -100,7 +100,7 @@ const ViewFragmentContent = (element) => ({
   isInDOM: false,
 
   chain: (fn) => fn(element),
-  map: async (fn) => await ViewOf(fn(element)),
+  map: async (fn) => await ViewOf({ element: fn(element) }),
 
   getClone: async () => await ViewOf({ element: element.cloneNode(true) }),
 });
