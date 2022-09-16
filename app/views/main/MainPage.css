@@ -16,7 +16,7 @@
   max-width: 50px;
 }
 
-.omnibox {
+.omnibox__slot {
   display: flex;
   justify-content: center;
   border: black 1px solid;
@@ -26,7 +26,7 @@
   flex: auto;
 }
 
-.avatar {
+.avatar__slot {
   /*background-color: coral;*/
   width: 50px;
 }
