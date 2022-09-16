@@ -8,4 +8,5 @@ export default async () => {
     parentSelector: "#app",
   });
   console.log("MainView", view);
+  return view;
 };

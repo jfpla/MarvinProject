@@ -5,7 +5,7 @@ import {
   getMultiSearchResultsByTitle,
   saveMultiSearchResult,
 } from "../services/storage/TMDBRepository.js";
-import { searchResultsBuilder } from "./SearchResultController.js";
+// import { searchResultsBuilder } from "./SearchResultController.js";
 
 /**
  * TODO: split this function in two:
@@ -34,24 +34,37 @@ async function querySearchProxy(e) {
 }
 
 const LoadOmniboxController = async () => {
-  const omniboxNode = await OmniboxView();
-  // console.log(omniboxNode);
-  const form = omniboxNode.querySelector("form");
-  const input = omniboxNode.querySelector("input");
+  const view = await OmniboxView();
+  // console.log(view);
+  /**
+   * Adds event listeners to the view monad
+   * @param {Element} element
+   * @return {Element}
+   */
+  const viewEventListeners = (element) => {
+    const form = element.querySelector("form");
+    const input = element.querySelector("input");
 
-  form.addEventListener("submit", (e) => {
-    console.log("Enter");
-    e.preventDefault();
-  });
-  /*having "change" refreshes the view on changing focus*/
-  input.addEventListener(
-    "change",
-    throttle(searchResultsBuilder(querySearchProxy), 150)
-  );
-  input.addEventListener(
-    "input",
-    throttle(searchResultsBuilder(querySearchProxy), 150)
-  );
+    form.addEventListener("submit", (e) => {
+      console.log("Enter");
+      e.preventDefault();
+    });
+    /*having "change" refreshes the view on changing focus*/
+    input.addEventListener(
+      "change",
+      (e) => console.log("changeEvent", e)
+      // TODO: refactor searchResultsController
+      // throttle(searchResultsBuilder(querySearchProxy), 150)
+    );
+    input.addEventListener(
+      "input",
+      (e) => console.log("inputEvent", e)
+      // throttle(searchResultsBuilder(querySearchProxy), 150)
+    );
+    return element;
+  };
+  const newView = await view.map(viewEventListeners);
+  console.log("NEW Omnibox View", newView);
 };
 
 export default LoadOmniboxController;
