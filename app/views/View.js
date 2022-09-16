@@ -1,40 +1,12 @@
 /**
- * Load Methods
+ * View Monad:
+ * Loads template in the dom when parentSelector is given and returns a monad encapsulating the Element.
+ * When parentSelector is not given it simply returns a monad encapsulating the template Element.
  **/
 
 const getHRef = (relativeUrl, baseUrl) => {
   // console.log(relativeUrl + ", " + baseUrl);
   return new URL(relativeUrl, baseUrl).href;
-};
-
-/**
- * Loads template in the dom when parentSelector is given and returns the Element
- * When parentSelector is not given returns the template Element.
- * @param {String} htmlRelativeUrl
- * @param {String} baseUrl
- * @param {String} templateSelector
- * @param {String|null} parentSelector
- * @return {Promise<Element>}
- */
-const loadHTML = async (
-  htmlRelativeUrl,
-  baseUrl,
-  templateSelector,
-  parentSelector = null
-) => {
-  const htmlUrl = getHRef(htmlRelativeUrl, baseUrl);
-
-  const response = await fetch(htmlUrl);
-  const template = document.createElement("template");
-  template.innerHTML = await response.text();
-  const templateNode = template.content.querySelector(templateSelector);
-  if (parentSelector) {
-    const parentNode = document.querySelector(parentSelector);
-    parentNode.append(...templateNode.childNodes); // appendChild(mainContainer);
-    // console.log("postAppend parentNode", parentNode);
-    return parentNode;
-  }
-  return templateNode;
 };
 
 /**
@@ -57,36 +29,6 @@ const loadCSS = async (cssRelativeUrl, baseUrl) => {
   });
 };
 
-export { loadCSS, loadHTML };
-
-/**
- *
- * @param htmlRelativeUrl
- * @param baseUrl
- * @param templateSelector
- * @param parentSelector
- * @return {Promise<{templateText: string, parentNode: Element}|{templateText: string, templateNode: Element}>}
- * @private
- */
-const _loadHTML = async (
-  htmlRelativeUrl,
-  baseUrl,
-  templateSelector,
-  parentSelector = null
-) => {
-  const templateText = await getTemplateText(htmlRelativeUrl, baseUrl);
-  const templateNode = getTemplateElement(templateText, templateSelector);
-
-  if (parentSelector) {
-    const parentNode = insertTemplateElementToParent(
-      templateNode,
-      parentSelector
-    );
-    return { templateText, parentNode };
-  }
-  return { templateText, templateNode };
-};
-
 /**
  * Get template as text
  * @param {string} htmlRelativeUrl
@@ -101,14 +43,16 @@ const getTemplateText = async (htmlRelativeUrl, baseUrl) => {
 
 /**
  *
- * @param {string} templateText
- * @param {string} templateSelector
+ * @param templateText
  * @return {Element}
  */
-const getTemplateElement = (templateText, templateSelector) => {
+const getTemplateElement = (templateText) => {
   const template = document.createElement("template");
   template.innerHTML = templateText;
-  return template.content.querySelector(templateSelector);
+  const result = template.content.querySelector("*[data-view]");
+  if (result !== template.content.firstChild)
+    throw `Template's firstChild must have a 'data-view' attribute:\n ${templateText}`;
+  return result;
 };
 
 /**
@@ -119,104 +63,84 @@ const getTemplateElement = (templateText, templateSelector) => {
  */
 const insertTemplateElementToParent = (templateNode, parentSelector) => {
   const parentElement = document.querySelector(parentSelector);
-  parentElement.append(...templateNode.childNodes); // appendChild(templateNode);
-  return parentElement;
-};
+  if (
+    ["slot", "container"].some((k) => parentElement.dataset.hasOwnProperty(k))
+  )
+    return parentElement.appendChild(templateNode) && parentElement;
 
-const View = async (
-  htmlRelativeUrl,
-  baseUrl,
-  templateSelector,
-  parentSelector = null,
-  cssRelativeUrl = null
-) => {
-  if (cssRelativeUrl) await loadCSS(cssRelativeUrl, baseUrl);
-
-  const templateText = await getTemplateText(htmlRelativeUrl, baseUrl);
-  const templateElement = getTemplateElement(templateText, templateSelector);
-  const parentElement =
-    parentSelector &&
-    insertTemplateElementToParent(templateElement, parentSelector);
-
-  return () => {
-    const text = templateText;
-    const element = parentElement || templateElement;
-    return {
-      getElement: () => element,
-      getParentElement: () => parentElement,
-      getTemplateText: () => text,
-
-      destroyElementFromDOM: () => {
-        while (parentElement?.firstChild) {
-          parentElement.removeChild(parentElement.firstChild);
-        }
-        templateElement?.parentNode?.removeChild(templateElement);
-      },
-      getTemplateElement: () =>
-        templateElement?.cloneNode(true) ||
-        getTemplateElement(text, templateSelector),
-      updateTemplateElement: (fn) => fn(templateElement?.cloneNode(true)),
-      // insertTemplateElement: (selector = null) => selector ? insertTemplateElementToParent(templateElement)
-    };
-  };
+  throw `${parentSelector} parentElement must have a 'data-slot' or 'data-container' attribute`;
 };
 
 /**
+ *
+ * @param {(Node|Element)} element
+ * @return {{isInDOM: boolean, chain: (function(*): *), getClone: (function(): Promise<*>), inspect: (function(): string), emit: (function(): *), map: (function(*): Promise<*>)}}
+ * @constructor
+ */
+const ViewInDOM = (element) => ({
+  emit: () => element,
+  inspect: () => `${ViewInDOM.name}(\n${element}\n)`,
+  isInDOM: true,
+
+  chain: (fn) => fn(element),
+  map: async (fn) => await ViewOf(fn(element)),
+
+  getClone: async () => await ViewOf({ element: element.cloneNode(true) }),
+});
+
+/**
+ *
+ * @param {(Node|Element)} element
+ * @return {{isInDOM: boolean, chain: (function(*): *), getClone: (function(): Promise<*>), inspect: (function(): string), emit: (function(): *), map: (function(*): Promise<*>)}}
+ * @constructor
+ */
+const ViewFragmentContent = (element) => ({
+  emit: () => element,
+  inspect: () => `${ViewFragmentContent.name}(\n${element}\n)`,
+  isInDOM: false,
+
+  chain: (fn) => fn(element),
+  map: async (fn) => await ViewOf(fn(element)),
+
+  getClone: async () => await ViewOf({ element: element.cloneNode(true) }),
+});
+
+/**
  * Avalua params i torna un View
- * @param {Element} element
- * @param {string} htmlRelativeUrl
- * @param {string} baseUrl
- * @param {string} templateSelector
- * @param {string} parentSelector
- * @param {string} cssRelativeUrl
+ * @param {{element: (Node|Element), baseUrl: string, cssRelativeUrl: string, htmlRelativeUrl: string, parentSelector: string}}
  * @return {Promise<*>}
  * @constructor
  */
 const ViewOf = async ({
   element,
-  htmlRelativeUrl,
   baseUrl,
-  templateSelector,
-  parentSelector,
   cssRelativeUrl,
+  htmlRelativeUrl,
+  parentSelector,
 }) => {
-  if (element instanceof Element) return _View(element);
-
-  if (!(htmlRelativeUrl && baseUrl && templateSelector && cssRelativeUrl)) {
-    return;
+  if (element instanceof Element && element.dataset.hasOwnProperty("view")) {
+    if (element.parentNode) {
+      return ViewInDOM(element);
+    } else {
+      return ViewFragmentContent(element);
+    }
   }
 
+  if (!(htmlRelativeUrl && baseUrl && cssRelativeUrl)) {
+    throw "Missing full template url, css or both";
+  }
+
+  const templateElement = getTemplateElement(
+    await getTemplateText(htmlRelativeUrl, baseUrl)
+  );
   await loadCSS(cssRelativeUrl, baseUrl);
-  const templateText = await getTemplateText(htmlRelativeUrl, baseUrl);
-  const templateElement = getTemplateElement(templateText, templateSelector);
+
   const parentElement =
     parentSelector &&
     insertTemplateElementToParent(templateElement, parentSelector);
-  return parentElement ? _View(parentElement) : _View(templateElement);
+
+  return await ViewOf({ element: parentElement || templateElement });
 };
-
-/**
- * un sol paràmetre de tipus Element i torna objecte View amb mètodes
- * @param {Element} element
- * @param element
- * @return {{chain: (function(*): *), inspect: (function(): string), getElementAsText: (function(): *), emit: (function(): *), map: (function(*): Promise<*>), getElementClone: (function(): ActiveX.IXMLDOMNode | Node)}}
- * @private
- */
-const _View = (element) => ({
-  emit: () => element,
-  inspect: () => `View(\n${element.innerHTML}\n)`,
-
-  chain: (fn) => fn(element),
-  map: async (fn) => await ViewOf(fn(element)),
-
-  getElementAsText: () => element.innerHTML,
-  getElementClone: () => element.cloneNode(true),
-  destroyElementFromDom: () => {
-    while (element.parentNode?.firstChild) {
-      element.parentNode.removeChild(element.parentNode.firstChild);
-    }
-  },
-});
 
 export default {
   of: ViewOf,
