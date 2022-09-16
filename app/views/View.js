@@ -124,6 +124,8 @@ const ViewOf = async ({
     } else {
       return ViewFragmentContent(element);
     }
+  } else if (element instanceof Element) {
+    throw `Invalid View: Its top element must have a 'data-view' attribute.\n${element.innerHTML}`;
   }
 
   if (!(htmlRelativeUrl && baseUrl && cssRelativeUrl)) {
@@ -135,11 +137,10 @@ const ViewOf = async ({
   );
   await loadCSS(cssRelativeUrl, baseUrl);
 
-  const parentElement =
-    parentSelector &&
+  parentSelector &&
     insertTemplateElementToParent(templateElement, parentSelector);
 
-  return await ViewOf({ element: parentElement || templateElement });
+  return await ViewOf({ element: templateElement });
 };
 
 export default {

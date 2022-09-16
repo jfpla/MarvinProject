@@ -1,9 +1,11 @@
-import { loadHTML, loadCSS } from "../View.js";
+import View from "../View.js";
 
-const LoadMainView = async () => {
-  const baseUrl = import.meta.url;
-  await loadHTML("./MainPage.html", baseUrl, "#main__template", "#app");
-  await loadCSS("./MainPage.css", baseUrl);
+export default async () => {
+  const view = await View.of({
+    baseUrl: import.meta.url,
+    cssRelativeUrl: "./MainPage.css",
+    htmlRelativeUrl: "./MainPage.html",
+    parentSelector: "#app",
+  });
+  console.log("MainView", view);
 };
-
-export default LoadMainView;
