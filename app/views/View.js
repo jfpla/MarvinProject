@@ -1,5 +1,5 @@
 /**
- * View Monad:
+ * View Monad (not really a monad yet):
  * Loads template in the dom when parentSelector is given and returns a monad encapsulating the Element.
  * When parentSelector is not given it simply returns a monad encapsulating the template Element.
  **/
@@ -83,7 +83,13 @@ const ViewInDOM = (element) => ({
   isInDOM: true,
 
   chain: (fn) => fn(element),
-  map: async (fn) => await ViewOf({ element: fn(element) }),
+  map: async (fn) =>
+    await ViewOf({
+      element:
+        fn.constructor.name === "AsyncFunction"
+          ? await fn(element)
+          : fn(element),
+    }),
 
   getClone: async () => await ViewOf({ element: element.cloneNode(true) }),
 });
@@ -100,7 +106,13 @@ const ViewFragmentContent = (element) => ({
   isInDOM: false,
 
   chain: (fn) => fn(element),
-  map: async (fn) => await ViewOf({ element: fn(element) }),
+  map: async (fn) =>
+    await ViewOf({
+      element:
+        fn.constructor.name === "AsyncFunction"
+          ? await fn(element)
+          : fn(element),
+    }),
 
   getClone: async () => await ViewOf({ element: element.cloneNode(true) }),
 });

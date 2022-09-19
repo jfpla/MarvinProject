@@ -5,7 +5,7 @@ import {
   getMultiSearchResultsByTitle,
   saveMultiSearchResult,
 } from "../services/storage/TMDBRepository.js";
-// import { searchResultsBuilder } from "./SearchResultController.js";
+import { searchResultsBuilder } from "./SearchResultController.js";
 
 /**
  * TODO: split this function in two:
@@ -52,14 +52,14 @@ const LoadOmniboxController = async () => {
     /*having "change" refreshes the view on changing focus*/
     input.addEventListener(
       "change",
-      (e) => console.log("changeEvent", e)
+      // (e) => console.log("changeEvent", e)
       // TODO: refactor searchResultsController
-      // throttle(searchResultsBuilder(querySearchProxy), 150)
+      throttle(searchResultsBuilder(querySearchProxy), 150)
     );
     input.addEventListener(
       "input",
-      (e) => console.log("inputEvent", e)
-      // throttle(searchResultsBuilder(querySearchProxy), 150)
+      // (e) => console.log("inputEvent", e)
+      throttle(searchResultsBuilder(querySearchProxy), 150)
     );
     return element;
   };
