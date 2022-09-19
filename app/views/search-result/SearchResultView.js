@@ -1,5 +1,10 @@
 import View from "../View.js";
 
+/**
+ *
+ * @return {Promise<ViewType|*>}
+ * @constructor
+ */
 const SearchResultView = async () => {
   const previousResults = document.querySelector(".search-result__view");
   // console.log("previousResults", previousResults);

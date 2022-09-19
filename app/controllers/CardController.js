@@ -22,7 +22,7 @@ const retryFetchImage = (url, n = 0) => {
 /**
  *
  * @param {(TVShowType|MovieShowType|PersonType)[]} dataList
- * @return {AsyncGenerator<Node[], void, *>}
+ * @return {AsyncGenerator<ViewType, void, *>}
  * @constructor
  */
 export const HydrateCardTemplateGenerator = async function* (dataList) {
@@ -50,8 +50,8 @@ const btnWatchlist = (element) =>
 /**
  *
  * @param {(TVShowType|MovieShowType|PersonType)} data
- * @param {Element|Node} template
- * @return {Promise<Node[]>}
+ * @param {ViewType | null} template
+ * @return {ViewType}
  */
 const HydrateCardTemplate = async (data, template = null) => {
   const cs = CardSchema(data);

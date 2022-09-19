@@ -72,17 +72,47 @@ const insertTemplateElementToParent = (templateNode, parentSelector) => {
 };
 
 /**
+ * @typedef   {Object}  ViewType
+ * @property  {function(): Element} emit
+ * @property  {function(): string}  inspect
+ * @property  {boolean} isInDOM
+ * @property  {function(function(Element): Element): Element} chain
+ * @property  {function(function(Element): (Element | Promise<Element>)): Promise<ViewType>} map
+ * @property  {function(): Promise<Element>}  getClone
+ */
+
+/**
  *
  * @param {(Node|Element)} element
- * @return {{isInDOM: boolean, chain: (function(*): *), getClone: (function(): Promise<*>), inspect: (function(): string), emit: (function(): *), map: (function(*): Promise<*>)}}
+ * @return {ViewType}
  * @constructor
  */
 const ViewInDOM = (element) => ({
+  /**
+   *
+   * @return {Node|Element}
+   */
   emit: () => element,
+  /**
+   *
+   * @return {string}
+   */
   inspect: () => `${ViewInDOM.name}(\n${element}\n)`,
+
   isInDOM: true,
 
+  /**
+   *
+   * @param {function(Element): Element} fn
+   * @return {Element}
+   */
   chain: (fn) => fn(element),
+
+  /**
+   *
+   * @param {(function(Element): (Element | Promise<Element>))} fn
+   * @return {ViewType}
+   */
   map: async (fn) =>
     await ViewOf({
       element:
@@ -91,13 +121,17 @@ const ViewInDOM = (element) => ({
           : fn(element),
     }),
 
+  /**
+   *
+   * @return {Promise<ViewType>}
+   */
   getClone: async () => await ViewOf({ element: element.cloneNode(true) }),
 });
 
 /**
  *
  * @param {(Node|Element)} element
- * @return {{isInDOM: boolean, chain: (function(*): *), getClone: (function(): Promise<*>), inspect: (function(): string), emit: (function(): *), map: (function(*): Promise<*>)}}
+ * @return {ViewType}
  * @constructor
  */
 const ViewFragmentContent = (element) => ({
@@ -119,8 +153,9 @@ const ViewFragmentContent = (element) => ({
 
 /**
  * Avalua params i torna un View
+ * @typedef ViewOf
  * @param {{element: (Node|Element), baseUrl: string, cssRelativeUrl: string, htmlRelativeUrl: string, parentSelector: string}}
- * @return {Promise<*>}
+ * @return {Promise<ViewType>}
  * @constructor
  */
 const ViewOf = async ({
@@ -141,7 +176,9 @@ const ViewOf = async ({
   }
 
   if (!(htmlRelativeUrl && baseUrl && cssRelativeUrl)) {
-    throw "Missing full template url, css or both";
+    throw !element
+      ? "No arguments passed to ViewOf"
+      : "Missing full template url, css or both";
   }
 
   const templateElement = getTemplateElement(
@@ -155,6 +192,9 @@ const ViewOf = async ({
   return await ViewOf({ element: templateElement });
 };
 
+/**
+ * @property {ViewOf} of
+ */
 export default {
   of: ViewOf,
 };
