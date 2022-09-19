@@ -1,15 +1,12 @@
-import { loadCSS, loadHTML } from "../View.js";
+import View from "../View.js";
 
-const LoadOmniboxView = async () => {
-  const baseUrl = import.meta.url;
-  const omniboxNode = await loadHTML(
-    "./Omnibox.html",
-    baseUrl,
-    "#omnibox__template",
-    ".main__header .omnibox"
-  );
-  await loadCSS("./Omnibox.css", baseUrl);
-  return omniboxNode;
+export default async () => {
+  const view = await View.of({
+    baseUrl: import.meta.url,
+    cssRelativeUrl: "./Omnibox.css",
+    htmlRelativeUrl: "./Omnibox.html",
+    parentSelector: ".omnibox__slot",
+  });
+  console.log("OmniboxView", view);
+  return view;
 };
-
-export default LoadOmniboxView;

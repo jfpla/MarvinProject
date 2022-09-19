@@ -1,11 +1,8 @@
 /** Transitions **/
-import { loadCSS, loadHTML } from "../View.js";
+import View from "../View.js";
 import { login } from "../../auth/Auth.js";
 
-const TransitionLoginSetUp = (template, auth) => {
-  const loginElement = template.querySelector(".login");
-  console.log(loginElement);
-
+const TransitionLoginSetUp = (view, auth) => {
   const showLoginBoxGhost = (event) => {
     const loginElement = event.target;
     loginElement.style.setProperty("--shadowBGColor", "rgba(255, 255, 255)");
@@ -25,12 +22,23 @@ const TransitionLoginSetUp = (template, auth) => {
     });
   };
 
-  loginElement.addEventListener("click", (e) => {
-    loginTransition(e);
-    login(auth)();
-  });
+  /**
+   *
+   * @param {Element} element
+   * @return {Element}
+   */
+  const clickListener = (element) => {
+    const loginElement = element.querySelector(".login");
+    console.log(loginElement);
 
-  return template;
+    loginElement.addEventListener("click", (e) => {
+      loginTransition(e);
+      login(auth)();
+    });
+    return element;
+  };
+
+  return view.map(clickListener);
 };
 
 const TransitionLogoutSetUp = (template) => {
@@ -84,15 +92,16 @@ const TransitionToggleLogin = (template, activateLogin = true) => {
  * @constructor
  */
 const LoadLoginView = async (auth) => {
-  const loginTemplate = await loadHTML(
-    "./Login.html",
-    import.meta.url,
-    "#login__template"
-  );
-  await loadCSS("./Login.css", import.meta.url);
-  const template = TransitionLoginSetUp(loginTemplate, auth);
+  const view = await View.of({
+    baseUrl: import.meta.url,
+    cssRelativeUrl: "./Login.css",
+    htmlRelativeUrl: "./Login.html",
+  });
+  console.log("LoadLoginView", view);
 
-  return template;
+  const newView = await TransitionLoginSetUp(view, auth);
+  console.log("new LoadLoginView > ", newView);
+  return newView;
 };
 
 export default LoadLoginView;

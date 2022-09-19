@@ -1,18 +1,18 @@
-import { loadCSS, loadHTML } from "../View.js";
+import View from "../View.js";
 
 /**
  *
- * @return {Promise<Element>}
+ * @return {Promise<*>}
  * @constructor
  */
 const LoadCardView = async () => {
-  const cardTemplate = await loadHTML(
-    "./Card.html",
-    import.meta.url,
-    "#card__template"
-  );
-  await loadCSS("./Card.css", import.meta.url);
-  return cardTemplate;
+  const view = await View.of({
+    baseUrl: import.meta.url,
+    cssRelativeUrl: "./Card.css",
+    htmlRelativeUrl: "./Card.html",
+  });
+  console.log("LoadCardView", view);
+  return view;
 };
 
 export default LoadCardView;

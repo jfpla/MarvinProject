@@ -26,11 +26,26 @@ const retryFetchImage = (url, n = 0) => {
  * @constructor
  */
 export const HydrateCardTemplateGenerator = async function* (dataList) {
-  const cardTemplate = await CardView();
+  const view = await CardView();
   for (const data of dataList) {
-    yield await HydrateCardTemplate(data, cardTemplate.cloneNode(true));
+    yield await HydrateCardTemplate(data, view);
   }
 };
+
+const watchlistBtnToggleCallback = (btn, selected) => {
+  return () => {
+    if (selected) {
+      btn.classList.add("btn-selected");
+      btn.textContent = "Remove from Watchlist";
+    } else {
+      btn.classList.remove("btn-selected");
+      btn.textContent = "Add to Watchlist";
+    }
+  };
+};
+
+const btnWatchlist = (element) =>
+  element.querySelector(".back > .buttons > button:first-child");
 
 /**
  *
@@ -40,65 +55,50 @@ export const HydrateCardTemplateGenerator = async function* (dataList) {
  */
 const HydrateCardTemplate = async (data, template = null) => {
   const cs = CardSchema(data);
-  // console.log("data", data);
-  // console.log("CardSchema", cs);
-  const cardTemplate = template || (await CardView());
+  const view = template ? await template.getClone() : await CardView();
 
-  const thumbnail = cardTemplate.querySelector(".front .thumbnail");
-  const title = cardTemplate.querySelector(".front .name");
-  const background = cardTemplate.querySelector(".background img");
-  const rank = cardTemplate.querySelector(".rank i");
-  const viewers = cardTemplate.querySelector(".viewers");
-  const voteAvg = cardTemplate.querySelector(
-    ".back > .streaming-info > p:first-child"
-  );
-  const voteCnt = cardTemplate.querySelector(
-    ".back > .streaming-info > p:last-child"
-  );
-  // const overview = cardTemplate.querySelector(".back > p:first-of-type");
-  const btnWatchlist = (element) =>
-    element.querySelector(".back > .buttons > button:first-child");
-  // const btnDetails = cardTemplate.querySelector(
-  //   ".back > .buttons > button:last-child"
-  // );
-  // console.log(btnWatchlist, btnDetails);
+  /**
+   *
+   * @param {Element} e
+   * @return {Promise<Element>}
+   */
+  const populateData = async (e) => {
+    const thumbnail = e.querySelector(".front .thumbnail");
+    const name = e.querySelector(".front .name");
+    const background = e.querySelector(".background img");
+    const viewers = e.querySelector(".viewers");
+    const rank = e.querySelector(".rank i");
+    const voteAvg = e.querySelector(".back > .streaming-info > p:first-child");
+    const voteCnt = e.querySelector(".back > .streaming-info > p:last-child");
 
-  title.textContent = cs.data.frontName;
-  thumbnail.src = cs.data.frontThumbnail;
-  background.src = cs.data.backgroundImage;
-  rank.classList.remove("fa-user");
-  rank.classList.add(cs.data.rank);
-  viewers.textContent = cs.data.frontStatsViewers;
-  voteAvg.firstChild.textContent = cs.data.backStreamingInfoLeftData;
-  voteAvg.lastChild.textContent = cs.data.backStreamingInfoLeftName;
-  voteCnt.firstChild.textContent = cs.data.backStreamingInfoRightData;
-  voteCnt.lastChild.textContent = cs.data.backStreamingInfoRightName;
+    name.textContent = cs.data.frontName;
+    thumbnail.src = cs.data.frontThumbnail;
+    background.src = cs.data.backgroundImage;
+    viewers.textContent = cs.data.frontStatsViewers;
+    rank.classList.remove("fa-user");
+    rank.classList.add(cs.data.rank);
+    voteAvg.firstChild.textContent = cs.data.backStreamingInfoLeftData;
+    voteAvg.lastChild.textContent = cs.data.backStreamingInfoLeftName;
+    voteCnt.firstChild.textContent = cs.data.backStreamingInfoRightData;
+    voteCnt.lastChild.textContent = cs.data.backStreamingInfoRightName;
 
-  let watchlistItem = await cs.methods.getItemDetailById(cs.data.id);
-
-  const watchlistBtnToggleCallback = (btn, selected) => {
-    return () => {
-      if (selected) {
-        btn.classList.add("btn-selected");
-        btn.textContent = "Remove from Watchlist";
-      } else {
-        btn.classList.remove("btn-selected");
-        btn.textContent = "Add to Watchlist";
-      }
-    };
+    return e;
   };
 
-  if (watchlistItem) {
-    console.log(watchlistItem);
-    watchlistBtnToggleCallback(btnWatchlist(cardTemplate), true)();
-  }
+  /**
+   *
+   * @param {Element} element
+   * @return {Promise<Element>}
+   */
+  const populateEventListeners = async (element) => {
+    let watchlistItem = await cs.methods.getItemDetailById(cs.data.id);
 
-  return [...cardTemplate.cloneNode(true).childNodes].map((node) => {
-    // An Element Node Type is needed. That is when nodeType is 1.
-    // https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType
-    if (node.nodeType !== 1) return node;
+    if (watchlistItem) {
+      console.log(watchlistItem);
+      watchlistBtnToggleCallback(btnWatchlist(element), true)();
+    }
 
-    const btnW = btnWatchlist(node);
+    const btnW = btnWatchlist(element);
     btnW.addEventListener("click", async (e) => {
       if (watchlistItem) {
         await cs.methods.deleteItemDetailById(
@@ -114,26 +114,28 @@ const HydrateCardTemplate = async (data, template = null) => {
       }
       if (e.target.parentElement?.parentElement?.parentElement) {
         e.target.parentElement.parentElement.parentElement.replaceWith(
-          ...(await HydrateCardTemplate(data))
+          (await HydrateCardTemplate(data)).emit()
         );
       }
     });
-
-    const images = node.querySelectorAll("img");
+    const images = element.querySelectorAll("img");
     images.forEach((img) => {
       img.addEventListener("error", async (e) => {
         console.log("imgError", e.target);
         await retryFetchImage(e.target.src)();
         if (e.target.parentElement?.parentElement) {
           e.target.parentElement.parentElement.replaceWith(
-            ...(await HydrateCardTemplate(data))
+            (await HydrateCardTemplate(data)).emit()
           );
         }
       });
     });
 
-    return node;
-  });
+    return element;
+  };
+
+  const newView = await view.map(populateData);
+  return await newView.map(populateEventListeners);
 };
 
 export default HydrateCardTemplate;

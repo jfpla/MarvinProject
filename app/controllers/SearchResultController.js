@@ -8,17 +8,20 @@ import { HydrateCardTemplateGenerator } from "./CardController.js";
  */
 const LoadSearchResultController = async (data) => {
   if (!data) return;
-  const searchResultNode = await SearchResultView();
-  // console.log(searchResultNode);
+  const view = await SearchResultView();
+  // console.log(view);
   const fragment = document.createDocumentFragment();
   for await (const card of HydrateCardTemplateGenerator(data.results)) {
-    fragment.append(...card);
+    fragment.appendChild(card.emit());
   }
   // for (const item of data.results) {
   //   const card = await HydrateCardTemplate(item);
   //   fragment.append(...card);
   // }
-  searchResultNode.querySelector("#search-result").appendChild(fragment);
+  view.map(
+    (e) =>
+      e.querySelector(".search-result__container").appendChild(fragment) && e
+  );
 };
 
 export function searchResultsBuilder(callback) {

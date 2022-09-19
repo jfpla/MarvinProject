@@ -32,7 +32,7 @@ img {
   max-width: 100%;
 }
 
-.game {
+.card__view {
   position: relative;
   /*max-width allows shrink?*/
   width: 12.5em;
@@ -174,30 +174,30 @@ img {
   object-position: top center;
 }
 
-.game:hover .rank {
+.card__view:hover .rank {
   /*transform: translate(150%, -90%);*/
   transform: translate(150%, -56%);
 }
 
-.game:hover .front {
+.card__view:hover .front {
   transform: translateY(-30%) scale(0.8);
 }
 
-.game:hover .front .name {
+.card__view:hover .front .name {
   animation: gameName 250ms forwards;
 }
 
-.game:hover .front .stats {
+.card__view:hover .front .stats {
   opacity: 0;
 }
 
-.game:hover .back {
+.card__view:hover .back {
   opacity: 1;
   transform: translateY(0);
   transition: transform 250ms ease, opacity 150ms linear;
 }
 
-.game:hover .background {
+.card__view:hover .background {
   transition: var(--bg-transition), opacity 100ms linear;
   opacity: 1;
   /*transform: scale(1.4, 1.2);*/

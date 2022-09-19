@@ -1,10 +1,15 @@
-.omnibox form {
-  display: flex;
-  height: 100%;
-  width: 99%;
+.omnibox__view {
+  flex-grow: 1;
+  padding: 0 1rem;
 }
 
-.omnibox form input {
+.omnibox__slot form {
+  display: flex;
+  height: 100%;
+  /*width: 100%;*/
+}
+
+.omnibox__slot form input {
   /*height: 100%; !* no sembla necessari *!*/
   width: 100%;
   border-radius: 100vh;

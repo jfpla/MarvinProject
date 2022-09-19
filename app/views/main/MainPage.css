@@ -1,6 +1,5 @@
 .main__header {
   display: flex;
-  /*justify-content: space-between;*/
   height: 50px;
   padding: 0 5px;
 }
@@ -16,17 +15,14 @@
   max-width: 50px;
 }
 
-.omnibox {
+.omnibox__slot {
   display: flex;
-  justify-content: center;
   border: black 1px solid;
   border-radius: 0.5em;
-  /*background-color: blue;*/
   padding: 0;
   flex: auto;
 }
 
-.avatar {
-  /*background-color: coral;*/
+.avatar__slot {
   width: 50px;
 }
