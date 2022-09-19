@@ -1,6 +1,5 @@
 .main__header {
   display: flex;
-  /*justify-content: space-between;*/
   height: 50px;
   padding: 0 5px;
 }
@@ -18,15 +17,12 @@
 
 .omnibox__slot {
   display: flex;
-  justify-content: center;
   border: black 1px solid;
   border-radius: 0.5em;
-  /*background-color: blue;*/
   padding: 0;
   flex: auto;
 }
 
 .avatar__slot {
-  /*background-color: coral;*/
   width: 50px;
 }
