@@ -10,22 +10,14 @@ export default async (auth) => {
   // document.getElementById("btn-login").disabled = isAuthenticated;
 
   /*Reset home*/
-  const appNode = document.querySelector("#app");
-  const appHeaderNode = appNode.querySelector("header");
-  const appMainNode = appNode.querySelector("main");
-  appHeaderNode && appNode.removeChild(appHeaderNode);
-  appMainNode && appNode.removeChild(appMainNode);
-
-  const bodyNode = document.querySelector("body");
-  const mainNode = document.querySelector("main");
-  const loginNode = document.querySelector(".login__container");
-  mainNode && bodyNode.removeChild(mainNode);
-  loginNode && appNode.removeChild(loginNode);
+  const mainViewNode = document.querySelector(".main__view");
+  const loginViewNode = document.querySelector(".login__view");
+  mainViewNode && mainViewNode.remove();
+  loginViewNode && loginViewNode.remove();
 
   if (!isAuthenticated) {
-    const loginTemplate = await Login(auth);
-    // document.querySelector("main").append(...loginTemplate.childNodes);
-    document.querySelector("#app").append(...loginTemplate.childNodes);
+    const loginView = await Login(auth);
+    document.querySelector("#app").appendChild(loginView.emit());
   } else {
     await MainView();
     await OmniboxController();
