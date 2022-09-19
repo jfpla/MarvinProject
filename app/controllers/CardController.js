@@ -44,10 +44,8 @@ const watchlistBtnToggleCallback = (btn, selected) => {
   };
 };
 
-const btnWatchlist = (element) => {
-  const result = element.querySelector(".back > .buttons > button:first-child");
-  return result;
-};
+const btnWatchlist = (element) =>
+  element.querySelector(".back > .buttons > button:first-child");
 
 /**
  *
@@ -57,7 +55,7 @@ const btnWatchlist = (element) => {
  */
 const HydrateCardTemplate = async (data, template = null) => {
   const cs = CardSchema(data);
-  const view = (await template.getClone()) || (await CardView());
+  const view = template ? await template.getClone() : await CardView();
 
   /**
    *
@@ -83,11 +81,6 @@ const HydrateCardTemplate = async (data, template = null) => {
     voteAvg.lastChild.textContent = cs.data.backStreamingInfoLeftName;
     voteCnt.firstChild.textContent = cs.data.backStreamingInfoRightData;
     voteCnt.lastChild.textContent = cs.data.backStreamingInfoRightName;
-
-    // const btnDetails = view.querySelector(
-    //   ".back > .buttons > button:last-child"
-    // );
-    // console.log(btnWatchlist, btnDetails);
 
     return e;
   };
@@ -121,7 +114,7 @@ const HydrateCardTemplate = async (data, template = null) => {
       }
       if (e.target.parentElement?.parentElement?.parentElement) {
         e.target.parentElement.parentElement.parentElement.replaceWith(
-          ...(await HydrateCardTemplate(data))
+          (await HydrateCardTemplate(data)).emit()
         );
       }
     });
@@ -132,7 +125,7 @@ const HydrateCardTemplate = async (data, template = null) => {
         await retryFetchImage(e.target.src)();
         if (e.target.parentElement?.parentElement) {
           e.target.parentElement.parentElement.replaceWith(
-            ...(await HydrateCardTemplate(data))
+            (await HydrateCardTemplate(data)).emit()
           );
         }
       });
