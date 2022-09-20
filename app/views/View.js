@@ -111,7 +111,7 @@ const ViewInDOM = (element) => ({
   /**
    *
    * @param {(function(Element): (Element | Promise<Element>))} fn
-   * @return {ViewType}
+   * @return {Promise<ViewType>}
    */
   map: async (fn) =>
     await ViewOf({
@@ -181,10 +181,11 @@ const ViewOf = async ({
       : "Missing full template url, css or both";
   }
 
+  await loadCSS(cssRelativeUrl, baseUrl);
+
   const templateElement = getTemplateElement(
     await getTemplateText(htmlRelativeUrl, baseUrl)
   );
-  await loadCSS(cssRelativeUrl, baseUrl);
 
   parentSelector &&
     insertTemplateElementToParent(templateElement, parentSelector);
