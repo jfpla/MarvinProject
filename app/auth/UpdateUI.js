@@ -23,6 +23,6 @@ export default async (auth) => {
   } else {
     await MainView();
     await OmniboxController();
-    await AvatarController();
+    await AvatarController(auth);
   }
 };
