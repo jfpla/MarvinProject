@@ -18,7 +18,7 @@ const LoadSearchResultController = async (data) => {
   //   const card = await HydrateCardTemplate(item);
   //   fragment.append(...card);
   // }
-  view.map(
+  await view.map(
     (e) =>
       e.querySelector(".search-result__container").appendChild(fragment) && e
   );

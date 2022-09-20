@@ -16,7 +16,7 @@ export const logout = (auth) => {
 
 const fetchAuthConfig = () => fetch("/auth_config.json");
 
-const configAuthClient = async () => {
+export const configAuthClient = async () => {
   const response = await fetchAuthConfig();
   const config = await response.json();
 

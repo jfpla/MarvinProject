@@ -3,17 +3,19 @@ import OmniboxController from "../controllers/OmniboxController.js";
 import AvatarController from "../controllers/AvatarController.js";
 import Login from "../views/login/Login.js";
 
+export const resetApp = () => {
+  const appNode = document.querySelector("#app");
+  while (appNode.firstChild) {
+    appNode.removeChild(appNode.firstChild);
+  }
+};
+
 export default async (auth) => {
   const isAuthenticated = await auth.isAuthenticated();
   console.log("updateUI", isAuthenticated);
-  // document.getElementById("btn-logout").disabled = !isAuthenticated;
-  // document.getElementById("btn-login").disabled = isAuthenticated;
 
   /*Reset home*/
-  const mainViewNode = document.querySelector(".main__view");
-  const loginViewNode = document.querySelector(".login__view");
-  mainViewNode && mainViewNode.remove();
-  loginViewNode && loginViewNode.remove();
+  resetApp();
 
   if (!isAuthenticated) {
     const loginView = await Login(auth);
@@ -21,6 +23,6 @@ export default async (auth) => {
   } else {
     await MainView();
     await OmniboxController();
-    await AvatarController();
+    await AvatarController(auth);
   }
 };

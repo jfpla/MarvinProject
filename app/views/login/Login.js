@@ -88,7 +88,7 @@ const TransitionToggleLogin = (template, activateLogin = true) => {
 /**
  *
  * @param auth
- * @return {Promise<Element>}
+ * @return {Promise<ViewType|*>}
  * @constructor
  */
 const LoadLoginView = async (auth) => {

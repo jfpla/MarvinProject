@@ -2,7 +2,7 @@ import View from "../View.js";
 
 /**
  *
- * @return {Promise<*>}
+ * @return {Promise<ViewType|*>}
  * @constructor
  */
 const LoadCardView = async () => {
