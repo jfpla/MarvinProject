@@ -31,9 +31,9 @@ const TransitionLoginSetUp = (view, auth) => {
     const loginElement = element.querySelector(".login");
     console.log(loginElement);
 
-    loginElement.addEventListener("click", (e) => {
+    loginElement.addEventListener("click", async (e) => {
       loginTransition(e);
-      login(auth)();
+      await login(auth)();
     });
     return element;
   };

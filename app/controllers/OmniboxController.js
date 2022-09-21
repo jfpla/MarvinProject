@@ -6,6 +6,7 @@ import {
   saveMultiSearchResult,
 } from "../services/storage/TMDBRepository.js";
 import { searchResultsBuilder } from "./SearchResultController.js";
+import { configAuthClient, logout } from "../auth/Auth.js";
 
 /**
  * TODO: split this function in two:
@@ -20,6 +21,14 @@ async function querySearchProxy(e) {
   console.log(`${e.type} | ${query}`, e);
 
   e.preventDefault();
+
+  if (query === "!logout") {
+    const auth = await configAuthClient();
+    await logout(auth)();
+    return;
+  } else if (query[0] === "!") {
+    return;
+  }
 
   let result = await getMultiSearchResultsByTitle(query);
   if (result) {
