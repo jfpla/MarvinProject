@@ -1,85 +1,30 @@
-# Blueprint sketch
+# MarvinProject
 
-## De què anirà la vostra app
+**English**  
+This was the final project delivered as a result of a frontend development course. No frameworks or libraries could be
+used to program this app. This is an unfinished app based on HTML5, CSS and vanilla JavaScript ES6+. It does not solve
+any real problem. It only provides a search box to find some tv/movie content leveraging The Movie Database API.
 
-Un wishlist on steroids de pel·lícules, sèries, llibres o articles
+Given the JS quirks, applying the functional programming paradigm was a choice made by intuition after reading some
+articles about modern JS. It turns out that, for someone who's used to OOP, applying pure functions and composition 
+everywhere is not that easy. All the design and architecture decisions taken were based on that intuition and a messy 
+curiosity. The main goal was to learn that paradigm and explore some subsystems of the web ecosystem.
 
-## Qui problema resol?
+In short: these decisions, for the most part, may not make much sense, may well be too complicated or just plain wrong
+given the project scope.
 
-Explotar la FOMO que molts portem dins respecte al consum cultural.
-Deixar de perdre el temps donant voltes i més voltes a la corrua de continguts
-oferts per les diferents plataformes de continguts.
+--- 
 
-O bé el seu Algorisme no funciona perquè respon a altres interessos més enllà
-del teu gust particular o bé no té prou contingut de qualitat.
-En qualsevol cas, la millor guia són el boca-orella i les recomanacions de gent
-que et coneix o amb qui hi ha certa afinitat de gustos.
+**Català**  
+Aquest va ser el projecte final entregat com a resultat d'un curs de frontend development. Els únics requisits del qual
+eren desenvolupar una aplicació web, sense frameworks ni llibreries, basada en HTML5, CSS i vanilla JavaScript ES6+. El
+resultat és una aplicació inacabada, que no resol cap problema real i es limita a presentar un cercador de contingut
+audiovisual atacant l'API externa de TMDB.
 
-Sovint em passa que quan tinc algun temps mort no sé què mirar, tot i saber que
-algú en algun moment em va recomanar tal sèrie o llibre. Però soc incapaç de
-recordar què era ni si és el més adequat pel temps que disposo.
+Donades les característiques del llenguatge, es va optar per aplicar el paradigma de la programació funcional. He pogut
+comprovar com utilitzar funcions pures i composició a tot arreu no és una tasca fàcil per algú acostumat a l'OOP. Totes
+les decisions preses pel que fa al disseny i arquitectura de l'app s'han basat en la intuïció, curiositat i cert
+desordre, prioritzant l'aprenentatge d'aquest paradigma i l'exploració d'alguns subsistemes propis de l'ecosistema web.
 
-## Quina API consumeix?
-
-N'he anotat algunes però sense mirar res a fons.
-
-- https://www.themoviedb.org/documentation/api
-- https://simkl.docs.apiary.io/
-- http://www.goodreads.com/api
-- https://developers.google.com/books
-
-### API de TMDB
-
-D'entrada ens limitarem a usar l'api de themoviedb.  
-Suporta CORS.  
-
-Més informació a [./doc/ExternalAPI.md](doc/ExternalAPI.md)
-
-## Quin serà el seu usuari habitual?
-
-Un diagrama de Venn mostrant la intersecció entre geeks, content junkies i
-keyboard workflow lovers.  
-
-## Quines característiques i funcionalitats tindrà?
-
-### Disseny
-- [UX (doc/UX.md)](doc/UX.md)
-- [Architecture (doc/ARCH.md)](doc/ARCH.md)
-
-### Resum
-- Cercador tipus omnibox que permeti agregar el contingut a la llista d'una
-  forma ràpida. Ha de ser pràctic, treure el mòbil/desktop i notar amb una o
-  dues interaccions.
-- Afegir anotacions al contingut, referències sobre qui l'ha recomanat
-- Seguiment de capítols
-- Recomanacions en funció del temps disponible, mood, gènere.
-- Arxivar contingut
-- Afegir noves fitxes de contingut mitjançant enllaços
-- Local storage amb objectes ben estructurats. [Notes Storage](#remote-storage)
-
-### TODO (long term)
-
-#### Sync
-
-Usar Firebase per mantenir les dades sincronitzades entre dispositius.
-[Notes Storage](#remote-storage)
-
-#### Social
-
-El component social: Integració amb altres serveis com goodreads, themoviedb,
-simkl.com o youtube
-
-## Notes
-
-#### Remote Storage
-
-Planteja el projecte usant local storage i posa com a ampliació / línia
-futura la integració amb Firebase pel tema de sincronitzar entre dispositius.
-Si hi ha temps a fer la part de Firebase, bravo. Si no, igualment tens una
-webapp funcionant bé.
-
-A banda, si el tema local storage el fas amb objectes ben estructurats, després
-tens una part del camí recorregut per Firebase. I a banda, afegir Firebase no
-impedeix que t'interessi igualment tenir local storage, perquè així l'aplicació
-pugui sempre funcionar en local encara que no tingui connexió a Internet i fer
-posteriorment les sincronitzacions quan en torni a tenir.
+En resum, moltes d'aquestes decisions poden no tenir gaire sentit, ser massa complicades o directament incorrectes donat
+l'abast del projecte.
