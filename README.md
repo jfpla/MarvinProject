@@ -11,7 +11,7 @@ everywhere is not that easy. All the design and architecture decisions taken wer
 curiosity. The main goal was to learn that paradigm and explore some subsystems of the web ecosystem.
 
 In short: these decisions, for the most part, may not make much sense, may well be too complicated or just plain wrong
-given the project scope.
+given the project scope. I'm aware of that. This is me trying to learn something :)
 
 --- 
 
@@ -27,4 +27,4 @@ les decisions preses pel que fa al disseny i arquitectura de l'app s'han basat e
 desordre, prioritzant l'aprenentatge d'aquest paradigma i l'exploració d'alguns subsistemes propis de l'ecosistema web.
 
 En resum, moltes d'aquestes decisions poden no tenir gaire sentit, ser massa complicades o directament incorrectes donat
-l'abast del projecte.
+l'abast del projecte. En soc conscient. Aquest soc jo tractant d'aprendre alguna cosa :)
